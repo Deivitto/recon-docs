@@ -8,7 +8,7 @@ title = "Recon Book"
 [output.html]
 default-theme = "navy"
 preferred-dark-theme = "navy"
-additional-css = ["theme/toc.css"]
+additional-css = ["theme/toc.css", "theme/recon.css"]
 additional-js = ["theme/toc.js", "theme/seo.js"]
 git-repository-url = "https://github.com/Recon-Fuzz/recon-docs"
 git-repository-icon = "fa-github"
