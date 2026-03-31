@@ -1,4 +1,4 @@
-# Learn Invariant Testing
+# Smart Contract Invariant Testing Tutorial
 
 Most of our guides and documentation are focused on using fuzzing tools, primarily [Echidna](https://github.com/crytic/echidna) and [Medusa](https://github.com/crytic/medusa) because we use them internally at Recon. However, we also support running other tools on our cloud infrastructure such as [Foundry](https://github.com/foundry-rs/foundry) (fuzzing), [Halmos](https://github.com/a16z/halmos) (formal verification), and [Kontrol](https://github.com/runtimeverification/kontrol) (formal verification). 
 

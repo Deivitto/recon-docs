@@ -1,5 +1,7 @@
 # dynamic replacement
 
+> **TL;DR:** Dynamic Replacement lets you test multiple contract configurations (token decimals, feature flags, fork addresses) from the same branch by replacing variables in Setup.sol before each fuzzing run. Each replacement spawns a separate cloud job, enabling parallel testing of different scenarios without branch management overhead.
+
 dynamic replacement allows you to test multiple configuration variations of your contracts without managing separate branches or config files. By replacing variable values in your `Setup.sol` file before fuzzing runs, you can quickly test different scenarios with the same codebase.
 
 **Video Tutorial:** [dynamic replacement](https://www.youtube.com/watch?v=fk-xl0FkhDw) (1min)

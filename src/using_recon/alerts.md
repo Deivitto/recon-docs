@@ -1,4 +1,6 @@
-# Alerts
+# Telegram Alerts for Smart Contract Fuzzing
+
+> **TL;DR:** Recon alerts notify users via Telegram or webhook when a cloud fuzzing job breaks a property. Alerts are attached to Recipes (saved job configs) and trigger when broken properties exceed a configurable threshold. The webhook payload includes the job ID, broken property name, and the breaking call sequence.
 
 Alerts allow you to receive notifications when properties break during one of your runs to allow you to quickly take action. They can be added to any [recipe](/recipes.html) and specify whether an alert should trigger a Webhook or send a message on Telegram.
 
