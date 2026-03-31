@@ -1,0 +1,276 @@
+/* =============================================================
+   Recon Book — getrecon.xyz brand overrides for mdBook navy theme
+   ============================================================= */
+
+/* 1. CSS variable overrides for navy theme
+   ---------------------------------------- */
+.navy {
+  --bg: #1b1a19;
+  --fg: #e8e6f0;
+  --sidebar-bg: #1e1d2a;
+  --sidebar-fg: #c8c9db;
+  --sidebar-active: #7160e8;
+  --sidebar-non-existant: #8a8da0;
+  --links: #9d8fff;
+  --inline-code-color: #d4c4ff;
+  --quote-bg: rgba(113, 96, 232, 0.08);
+  --quote-border: #7160e8;
+  --table-border-color: rgba(255, 255, 255, 0.08);
+  --table-header-bg: #343147;
+  --table-alternate-bg: rgba(113, 96, 232, 0.04);
+  --theme-popup-bg: #1e1d2a;
+  --theme-popup-border: rgba(255, 255, 255, 0.1);
+  --theme-hover: #2a2839;
+  --searchbar-bg: #2a2a2a;
+  --searchbar-fg: #e8e6f0;
+  --searchbar-border-color: rgba(255, 255, 255, 0.1);
+  --search-mark-bg: rgba(113, 96, 232, 0.3);
+}
+
+/* 2. Content area: wider max-width + consistent padding
+   ----------------------------------------------------- */
+.content main {
+  max-width: 900px;
+  padding: 0 24px 60px 24px;
+}
+
+/* 3. Typography
+   ------------- */
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.content main {
+  line-height: 1.7;
+  color: #e8e6f0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  color: #f0eef8;
+}
+
+h1 {
+  font-size: 2em;
+  border-bottom: 2px solid rgba(113, 96, 232, 0.3);
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.25em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+/* 4. Sidebar modernization
+   ------------------------ */
+.navy .sidebar {
+  background: #1e1d2a;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@supports (backdrop-filter: blur(12px)) {
+  .navy .sidebar {
+    backdrop-filter: blur(12px);
+  }
+}
+
+.navy .sidebar .sidebar-scrollbox {
+  background: transparent;
+}
+
+.navy .sidebar .sidebar-scrollbox a {
+  color: #c8c9db;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.navy .sidebar .sidebar-scrollbox a:hover {
+  color: #e8e6f0;
+  background-color: rgba(113, 96, 232, 0.1);
+}
+
+.navy .sidebar .sidebar-scrollbox .active {
+  color: #9d8fff;
+  border-left: 3px solid #7160e8;
+  background-color: rgba(113, 96, 232, 0.12);
+  padding-left: 5px;
+}
+
+/* Chapter number / prefix in sidebar */
+.navy .sidebar .sidebar-scrollbox .chapter li.chapter-item .section {
+  color: #7160e8;
+}
+
+/* 5. Blockquote styling (TL;DR blocks)
+   ------------------------------------- */
+.navy .content blockquote {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 4px solid #7160e8;
+  background: rgba(113, 96, 232, 0.06);
+  border-radius: 0 6px 6px 0;
+  padding: 12px 20px;
+  margin: 1.5em 0;
+  color: rgba(232, 230, 240, 0.9);
+}
+
+/* 6. Code blocks
+   -------------- */
+.navy .content pre {
+  background: #262626;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+
+.navy .content code {
+  border-radius: 4px;
+}
+
+.navy .content pre > code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Inline code */
+.navy .content :not(pre) > code {
+  background: rgba(113, 96, 232, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #d4c4ff;
+}
+
+/* 7. Tables
+   --------- */
+.navy .content table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+.navy .content table thead tr {
+  background: #343147;
+}
+
+.navy .content table thead th {
+  padding: 10px 20px;
+  font-weight: 600;
+  color: #e8e6f0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.navy .content table tbody td {
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.navy .content table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.navy .content table tbody tr:nth-child(even) {
+  background: rgba(113, 96, 232, 0.04);
+}
+
+.navy .content table tbody tr:hover {
+  background: rgba(113, 96, 232, 0.08);
+  transition: background 0.15s ease;
+}
+
+/* 8. Links + buttons
+   ------------------ */
+.navy .content a {
+  color: #9d8fff;
+  transition: color 0.15s ease;
+}
+
+.navy .content a:hover {
+  color: #b8aaff;
+}
+
+/* Nav arrows */
+.navy .nav-chapters {
+  color: #9d8fff;
+  transition: color 0.15s ease;
+}
+
+.navy .nav-chapters:hover {
+  color: #7160e8;
+}
+
+/* 9. Menu bar
+   ----------- */
+.navy #menu-bar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(27, 26, 25, 0.85);
+}
+
+@supports (backdrop-filter: blur(8px)) {
+  .navy #menu-bar {
+    backdrop-filter: blur(8px);
+  }
+}
+
+.navy #menu-bar i {
+  color: #c8c9db;
+}
+
+.navy #menu-bar i:hover {
+  color: #9d8fff;
+}
+
+/* 10. Scrollbar
+   ------------- */
+.navy ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.navy ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navy ::-webkit-scrollbar-thumb {
+  background: rgba(113, 96, 232, 0.3);
+  border-radius: 3px;
+}
+
+.navy ::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 96, 232, 0.5);
+}
+
+/* Search results highlighting */
+.navy .searchresults a {
+  color: #9d8fff;
+}
+
+.navy .searchresults a:hover {
+  color: #b8aaff;
+}
+
+/* Theme popup */
+.navy .theme-popup {
+  background: #1e1d2a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.navy .theme-popup .theme:hover {
+  background: rgba(113, 96, 232, 0.1);
+}

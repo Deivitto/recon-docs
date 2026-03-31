@@ -62,23 +62,10 @@
   background-color: var(--active-bg);
 }
 
-/* Adjust content layout to prevent overlap ONLY when TOC is present */
-body:has(#right-toc) .content main {
-  margin-right: 300px;
-  margin-inline-start: 0;
-  margin-inline-end: auto;
-}
-
-/* Hide TOC on smaller screens and restore normal content width */
+/* Hide TOC on smaller screens */
 @media (max-width: 1200px) {
   #right-toc {
     display: none;
-  }
-  
-  body:has(#right-toc) .content main {
-    margin-right: auto;
-    margin-inline-start: auto;
-    margin-inline-end: auto;
   }
 }
 
@@ -107,12 +94,12 @@ body:has(#right-toc) .content main {
   top: 220px !important;
 }
 
-/* CSS Variables for consistent theming - using mdBook default colors */
+/* CSS Variables for consistent theming - getrecon.xyz purple accent */
 :root {
-  --link-color: #0074d9;
-  --border-color: #e0e0e0;
-  --hover-bg: rgba(0, 116, 217, 0.05);
-  --active-bg: rgba(0, 116, 217, 0.1);
+  --link-color: #7160e8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-bg: rgba(113, 96, 232, 0.08);
+  --active-bg: rgba(113, 96, 232, 0.15);
 }
 
 /* Dark theme support - using mdBook navy theme colors */
@@ -132,8 +119,8 @@ body:has(#right-toc) .content main {
 }
 
 [data-theme="navy"] {
-  --link-color: #4a9eff;
-  --border-color: #333333;
-  --hover-bg: rgba(74, 158, 255, 0.1);
-  --active-bg: rgba(74, 158, 255, 0.15);
+  --link-color: #9d8fff;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --hover-bg: rgba(113, 96, 232, 0.1);
+  --active-bg: rgba(113, 96, 232, 0.18);
 } 
