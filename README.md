@@ -1,3 +1,5 @@
+[![By Recon](https://getrecon.xyz/api/badge?type=recon)](https://getrecon.xyz)
+
 # Recon Docs
 
 This book is built using [mdBook](https://github.com/rust-lang/mdBook)
