@@ -147,4 +147,17 @@
     script3.textContent = JSON.stringify(breadcrumbSchema);
     document.head.appendChild(script3);
   }
+
+  // Sitewide backlink footer to getrecon.xyz
+  var content = document.getElementById("content");
+  if (content) {
+    var footer = document.createElement("footer");
+    footer.style.cssText = "margin-top:3rem;padding:1.5rem 0;border-top:1px solid var(--sidebar-separator,#3b3b3b);text-align:center;font-size:0.85rem;opacity:0.8;";
+    footer.innerHTML = '<a href="https://getrecon.xyz" target="_blank" rel="noopener">Recon</a> · '
+      + '<a href="https://getrecon.xyz/dashboard/jobs" target="_blank" rel="noopener">Cloud Fuzzing</a> · '
+      + '<a href="https://getrecon.xyz/dashboard/magic" target="_blank" rel="noopener">Recon Magic</a> · '
+      + '<a href="https://discord.gg/aCZrCBZdFd" target="_blank" rel="noopener">Discord</a> · '
+      + '<a href="https://x.com/getrecon" target="_blank" rel="noopener">Twitter</a>';
+    content.appendChild(footer);
+  }
 })();
