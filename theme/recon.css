@@ -27,13 +27,12 @@
   --search-mark-bg: rgba(113, 96, 232, 0.3);
 }
 
-/* 2. Content area: centered relative to full viewport
+/* 2. Content area: closer to sidebar, not dead-center
    --------------------------------------------------- */
 .content main {
   max-width: 750px;
   padding: 0 24px 60px 24px;
-  /* Offset left by half sidebar width so content centers on full screen */
-  margin-left: max(24px, calc(50% - 375px - (var(--sidebar-width, 300px) + var(--sidebar-resize-indicator-width, 8px)) / 2));
+  margin-left: clamp(24px, 5vw, 80px);
   margin-right: auto;
 }
 
