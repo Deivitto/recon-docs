@@ -1,0 +1,239 @@
+# Recon - Cloud Invariant Testing Platform for EVM Smart Contracts
+
+> Recon is a cloud-native invariant testing platform for EVM smart contracts. It provides the Chimera framework (write property-based tests once, run on Foundry, Echidna, Medusa, Halmos, and Kontrol), Recon Pro cloud execution with alerts and CI/CD campaigns, Recon Magic AI-powered fuzzing automation, governance fuzzing triggered by on-chain events, dynamic replacement for multi-config testing, and a VS Code extension for in-editor scaffolding and debugging. Recon protects over $3B in DeFi TVL and has executed over 12,500 cloud fuzzing runs.
+
+Website: https://getrecon.xyz
+Documentation: https://book.getrecon.xyz
+Discord: https://discord.gg/aCZrCBZdFd
+Twitter/X: https://x.com/getrecon
+GitHub: https://github.com/Recon-Fuzz
+Substack: https://getrecon.substack.com
+
+## Team and Authority
+
+Recon was founded by Alex the Entreprenerd (GalloDaSballo), a top Code4rena judge and former Badger DAO lead developer. The team includes nican0r (Lead Invariants Engineer), Antonio (creator of EchidnaToFoundry), Kn0t, 0xsi, and Deivitto. Founded in 2023, the team consists of 5-10 members. Recon protects over $3B in DeFi TVL. Notable clients include Liquity, Centrifuge, Badger, Corn, Balancer, Quill Finance, and Credit Coop. The Chimera template has been used over 300 times by professional auditors. Over $20M in user funds have been saved through vulnerabilities discovered using Recon's tools. The platform has executed over 12,500 cloud fuzzing runs. Recon supports 5 tools: Echidna, Medusa, Foundry, Halmos, and Kontrol.
+
+## Platform Overview
+
+Recon is a team of invariant testing engineers and security researchers that provide invariant testing as a service while also developing tools and educational content to make it easier for anyone to test invariants on their smart contracts. The goal is to make invariant testing a baseline for all projects building on the EVM.
+
+Recon Pro is a cloud tool for running invariant tests, supporting Echidna, Medusa, Foundry (fuzzing), Halmos (formal verification), and Kontrol (formal verification). It allows offloading long-duration fuzzing jobs to cloud infrastructure, eliminating local resource constraints for multi-day campaigns.
+
+The Recon Extension is an open source VS Code extension that scaffolds an invariant testing boilerplate using the Chimera Framework. It supports automatic compilation, target function selection with multiple testing modes (normal, fail, catch), actor modes (actor, admin), auto-mocking of contracts, in-editor Echidna/Medusa execution, coverage report generation with VS Code overlay via coverage gutters, and automatic Foundry reproducer generation for broken properties.
+
+Recon Magic provides Claude-powered AI agents that automate the setup and optimization process for fuzzing suites. Workflows include Scout + Setup + Properties + Coverage (full end-to-end), Scout + Setup + Coverage, Setup + Properties + Coverage, Setup + Coverage, Coverage V2, Implement Properties from Setup (Sonnet and Opus variants), Identify Invariants, and Find Bugs (experimental AI-powered audit).
+
+## Documentation
+
+### Getting Started
+
+- [Introduction](https://book.getrecon.xyz/introduction/introduction.html): Platform overview, navigation guide, and links to all major sections. Explains Recon Pro, the Recon Extension, and open source contributions. Includes video tutorial links for all tools, bytecode tools, storage and governance tools, and economic tools.
+
+- [Getting Started](https://book.getrecon.xyz/using_recon/getting_started.html): Account creation and GitHub App setup. Free tools require no account. Advanced features (cloud jobs, alerts, campaigns) require a GitHub-authenticated account and Recon Pro subscription. The Recon GitHub App provides read-only access to repositories for private repo support.
+
+- [Upgrading to Pro](https://book.getrecon.xyz/using_recon/upgrading_to_pro.html): Pro features include cloud execution of Echidna/Medusa/Halmos/Foundry, automated PR-triggered runs, automated reproducer generation, saved recipes, one-click shareable reports, corpus reuse, dynamic replacement, live monitoring, governance fuzzing, and exclusive access to Recon Magic AI workflows. Pro accounts are activated by the Recon team or via invite codes from existing Pro organizations.
+
+### Writing Invariant Tests
+
+- [Learn Invariant Testing](https://book.getrecon.xyz/writing_invariant_tests/learn_invariant_testing.html): Beginner guide with external resources for learning invariant testing from scratch. Links to the "First Day At Invariant School," "How To Define Invariants," and "Implementing Your First Smart Contract Invariants" Substack series. Includes additional learning resources: Recon Substack, video tutorials, Twitter, GitHub, EVM Fuzzing Resources, Echidna/Medusa documentation, and fuzzing video series. Lists retrospectives from engagements with Corn, eBTC, and Centrifuge (parts 1 and 2). Includes podcast episodes, office hours recordings, and a trophies section showcasing publicly disclosed bugs found using invariant testing.
+
+- [Example Project](https://book.getrecon.xyz/writing_invariant_tests/example_project.html): End-to-end tutorial building a Points contract with a deposit overflow bug. Walks through creating a contract, adding it to Setup with ActorManager and AssetManager, running Medusa, reading coverage reports, building target function handlers using the Invariants Builder tool, adding the updateGhosts and asActor modifiers, implementing properties (overflow check using try-catch with Panic library, monotonicity check using BeforeAfter ghost variables), generating Foundry reproducers from Medusa logs using the Medusa Log Scraper, and debugging the overflow with console logging. Demonstrates the full workflow from scaffolding to property verification.
+
+- [Implementing Properties](https://book.getrecon.xyz/writing_invariant_tests/implementing_properties.html): Comprehensive guide to property types and implementation techniques. Covers the five fundamental property types from Certora's categorization: Valid States (checking the system only stays in expected states), State Transitions (checking transitions between valid/invalid states), Variable Transitions (checking variables only change to/from expected values), High-Level Properties (checking broad system behavior), and Unit Tests (checking specific function behavior). Explains the distinction between inlined properties (defined inside a handler, checked only after that specific function call) and global properties (standalone public functions in the Properties contract, checked after any state-changing operation). All properties are written as assertions (not boolean properties) to run a single Echidna job in assertion mode. Includes a full ERC4626 vault example demonstrating: totalSupply solvency check (global property), deposit never-revert check (inlined property with checkError for expected reverts), and price-per-share change tracking (global property using OpType enum and ghost variables in BeforeAfter).
+
+- [Optimizing Broken Properties](https://book.getrecon.xyz/writing_invariant_tests/optimizing_broken_properties.html): Guide to using Echidna's optimization mode to maximize vulnerability impact and escalate finding severity. Optimization mode defines test functions with an `optimize_` prefix that return int256, and Echidna attempts to maximize the returned value. Demonstrates defining separate optimization tests for increases and decreases (critical for not missing exploit paths). Walks through a complete ERC4626 vault example where a 1 wei price-per-share change is escalated to demonstrate full share theft via inflation attack. Covers optimization mode gotchas: corpus reuse from cloud runs (copying reproducers-optimization into coverage directory), stale corpus from changed handler interfaces, and the zero-call-sequence Echidna bug. Links to real-world examples: Beraborrow critical severity escalation and Liquity V2 governance high-severity escalation. Typical production runs use 100,000,000 to 500,000,000 tests.
+
+- [Advanced Fuzzing Tips](https://book.getrecon.xyz/writing_invariant_tests/advanced.html): Best practices from the Recon team developed over a year of engagements. Covers target functions (using asActor/asAdmin modifiers, clamping as subset calling unclamped handlers, disabling irrelevant functions). Setup best practices: create your own test setup (avoid developer biases), keep the story clean (one state-changing operation per handler), state exploration and coverage (when to mock, token donations for interesting states). Programmatic deployment: using randomness in deployment configurations instead of static values, making suites multidimensional via Manager contracts (deploy, switchTo, getCurrent, getAll pattern). Implicit clamping: mapping reachable vs unreachable states from your setup. Ghost variables: using BeforeAfter contract, avoiding computation in ghost variable updates, never putting assertions in ghost variables, grouping function types with OpType enum. Inlined fuzz properties: using stateless modifier for multi-state-change tests, avoiding duplicate inlined properties. Exploring rounding errors: exact-check properties followed by optimization mode to determine precision loss severity.
+
+- [Chimera Framework](https://book.getrecon.xyz/writing_invariant_tests/chimera_framework.html): Detailed architecture of the Chimera framework contracts. Setup contract: deploys and initializes target contracts, tracks all contracts in the suite. TargetFunctions contract: defines the only functions called by the fuzzer, wraps target contract calls with clamping and properties. Properties contract: defines assertions checked after target function calls, preference for assertion mode over boolean properties. CryticToFoundry contract: converts breaking call sequences from Echidna/Medusa into Foundry unit tests for debugging. BeforeAfter contract: stores state before and after target function calls in a Vars struct for use in property definitions. CryticTester contract: single entry point for the fuzzer, inherits all target functions. Assertions contract: provides gt, gte, lt, lte, eq, t (true), between (uint256 and int256), and precondition assertion functions. Commands: `echidna . --contract CryticTester --config echidna.yaml` and `medusa fuzz`.
+
+- [Create Chimera App](https://book.getrecon.xyz/writing_invariant_tests/create_chimera_app.html): Foundry template with Chimera pre-configured for Echidna, Medusa, Halmos, and Kontrol. Includes detailed echidna.yaml configuration (testMode, prefix, coverage, corpusDir, balanceAddr, balanceContract, filterFunctions, cryticArgs, deployer, contractAddr, shrinkLimit, testLimit, seqLen, sender) and medusa.json configuration (workers, workerResetLimit, timeout, testLimit, callSequenceLength, corpusDirectory, coverageEnabled, deploymentOrder, targetContracts, blockNumberDelayMax, blockTimestampDelayMax, blockGasLimit, transactionGasLimit, assertion testing, optimization testing, chain configuration, compilation configuration). Covers library linking for Echidna and Medusa with external library functions.
+
+### Bootcamp (4-Part Tutorial Series)
+
+- [Bootcamp Introduction](https://book.getrecon.xyz/bootcamp/bootcamp_intro.html): Overview and prerequisites for the bootcamp series. Defines invariants (statements that should always hold true) and properties (logical statements about expected system behavior). Explains stateful fuzzing (chaining randomized calls into sequences to manipulate contract state) versus stateless fuzzing (individual function calls with random inputs). Introduces the Chimera Framework as a "write once, run everywhere" solution. Outlines the four phases of invariant testing: Phase 1 Setup (deploy contracts in meaningful state), Phase 2 Coverage (achieve line coverage over contracts of interest), Phase 3 Write Properties (define in English then translate to Solidity), Phase 4 Iterate (reflect and improve). Discusses the philosophy that the key benefit of invariant testing is the ability to think about and test edge cases.
+
+- [Part 1 - Invariant Testing with Chimera Framework](https://book.getrecon.xyz/bootcamp/bootcamp_part_1.html): Scaffolding, setup, and initial coverage using Morpho Blue as the example project. Covers using the Recon Extension and Recon Builder for scaffolding. Explains fail mode (canary tests confirming functions are not always reverting) and catch mode (testing when functions revert, since Echidna/Medusa skip reverting calls rather than failing). Demonstrates creating a simplified setup for Morpho, handling market creation, token deployment with AssetManager, and achieving initial line coverage. Covers debugging coverage issues using Foundry unit tests in CryticToFoundry and understanding the Medusa coverage report (green = reached, red = not reached).
+
+- [Part 2 - Multidimensional Invariant Tests](https://book.getrecon.xyz/bootcamp/bootcamp_part_2.html): Achieving full coverage and multidimensional testing, continuing the Morpho Blue example. Demonstrates evaluating coverage reports, debugging with canary properties, investigating liquidation handler coverage issues with Foundry, using oracle mock manipulation to reach liquidation paths, and achieving 100% meaningful line coverage. Introduces multidimensional testing concepts: using programmatic deployments to test multiple configurations (token decimals, collateral types) instead of static setups.
+
+- [Part 3 - Writing and Breaking Properties](https://book.getrecon.xyz/bootcamp/bootcamp_part_3.html): Defining and implementing properties. Covers three types of properties: global properties (assertions on global state like solvency), state-changing properties (verifying state evolution after function calls), and complex tests using the stateless modifier (DoomsdayTargets). Explains AdminTargets (privileged function handlers), DoomsdayTargets (inlined assertions for specific scenarios), and ManagersTargets (ActorManager/AssetManager interaction handlers). Demonstrates implementing properties on Morpho Blue including solvency and state transition checks.
+
+- [Part 4 - Liquity Governance Case Study](https://book.getrecon.xyz/bootcamp/bootcamp_part_4.html): Real-world vulnerability discovery in Liquity V2 governance using optimization mode. The _calculateAverageTimestamp function had truncation from division that was initially classified as low severity (max 1 second loss). A strict equality property on voting power sums broke immediately. A bounded tolerance property (10 seconds) also broke, indicating the issue was larger than expected. An optimization mode test was created to maximize the voting power difference. After 100 million tests, the maximum optimized value was 4,152,241 (in LQTY units), translating to millions of dollars of voting power inflation. Extended runs showed hundreds of millions of dollars possible. This escalated the finding from low severity to critical severity. The engagement demonstrated three escalation steps: exact check, exact check with bounds, and optimization mode. Links to real engagement repos: eBTC BSM, Nerite, and Liquity Governance V2.
+
+### Using Recon Pro
+
+- [Building Handlers](https://book.getrecon.xyz/using_recon/building_handlers.html): ABI-to-handler generation guide. Handlers are functions that wrap target contract calls with clamping (reducing fuzzer search space) and property assertions. Generate handlers by pasting contract ABI from Foundry's out directory into the Build Handlers page at getrecon.xyz/tools/builder. Download generated files as a zip, add to project, install Chimera and setup-helpers dependencies via `forge install Recon-Fuzz/chimera Recon-Fuzz/setup-helpers --no-commit`, configure remappings, then run with Echidna or Medusa.
+
+- [Running Jobs](https://book.getrecon.xyz/using_recon/running_jobs.html): Cloud job execution for Echidna, Medusa, Foundry (fuzzing), Halmos, and Kontrol (formal verification). Configure via web form: select tool, specify GitHub repo URL, set job name, configure tool-specific parameters (which override config file values), select dependency preinstall process. Supports both public and private repositories. Eliminates local resource constraints for multi-day campaigns. Video tutorials available for each tool.
+
+- [Recipes](https://book.getrecon.xyz/using_recon/recipes.html): Saved job configurations for quick access and consistent testing. Benefits: save time, ensure consistency, enable automation (required for campaigns), share configurations across teams, quick iteration. Create by selecting tool, naming, specifying repository, configuring tool settings, setting up dependencies, and optionally configuring dynamic replacement. Recipes are essential for campaigns (CI/CD automations). Changes to a recipe automatically propagate to associated campaigns.
+
+- [Alerts](https://book.getrecon.xyz/using_recon/alerts.html): Telegram and webhook notifications triggered when properties break. Alerts attach to recipes with a configurable threshold (number of broken properties to trigger). Telegram alerts send messages via @GetRecon_bot. Webhook alerts POST a JSON payload containing alerted status, jobId, broken property name, and breaking sequence to any URL. Alerts can be created, edited, disabled, and deleted.
+
+- [Campaigns](https://book.getrecon.xyz/using_recon/campaigns.html): CI/CD automations that auto-trigger cloud fuzzing on git push. Connect a branch to a recipe; on push, Recon triggers a fuzzing job, runs with recipe settings, and posts results as PR comments. PR comments include a table of all tested properties and Foundry unit test reproducers for each broken property. Unlike raw GitHub Actions, Recon Campaigns handle infrastructure, tool management, and PR commenting natively with no YAML or self-hosted runners required.
+
+- [Dynamic Replacement](https://book.getrecon.xyz/using_recon/dynamic_replacement.html): Variable swapping in Setup.sol for multi-config cloud runs without branching. Use cases: toggle boolean flags (feature flags, safety checks), test different token decimal configurations (6, 8, 18), swap hardcoded addresses for fork testing across chains (Ethereum, Arbitrum, Optimism). Configure by specifying variable name, type, and replacement value in the Recon interface. Each replacement runs as a separate parallel job.
+
+- [Governance Fuzzing](https://book.getrecon.xyz/using_recon/governance_fuzzing.html): On-chain event monitoring with auto-triggered fuzzing. Monitors a specified contract address for specific events, extracts event parameters, injects them into Setup.sol via dynamic replacement, and auto-triggers a fuzzing job using a pre-configured recipe. Use cases: testing governance proposals before execution, validating parameter changes, monitoring system configuration updates, testing emergency actions. Configure by specifying contract address, chain, recipe, event definition with parameter-to-variable mappings using XX placeholders. The most powerful use case is testing proposals during the governance voting period before they are executed on-chain.
+
+- [Recon Magic](https://book.getrecon.xyz/using_recon/recon_magic.html): AI-powered automation for smart contract fuzzing setup and optimization. Creates a new GitHub repository for results, invites collaborators, pushes original code, then executes the AI workflow step by step with commits at each stage. Nine available workflows ranging from full end-to-end (Scout + Setup + Properties + Coverage) to focused workflows (Coverage V2, Implement Properties from Setup). The Opus variant uses Claude Opus for higher quality property generation. V1 workflows include Identify Invariants (analysis only, no code changes) and Find Bugs (experimental AI-powered audit). Job statuses: Queued, WIP, Done, Stopped, Error.
+
+- [Recon Tricks](https://book.getrecon.xyz/using_recon/recon_tricks.html): Professional tips from the Recon team. Run in exploration mode for faster corpus building while developing suites. Always use corpus reuse (days of data replayed in minutes). Do not acknowledge small precision losses before running optimization mode (different corpus building can reveal different results). Share jobs immediately (auto-update every minute). Use dynamic replacement for multi-deployment tests, admin mistakes, and hardcoded precision tolerances. Repurpose Chimera suites for fork-based monitoring (Echidna, Medusa, and Foundry all support forked tests).
+
+### Free Recon Tools
+
+- [Recon Extension](https://book.getrecon.xyz/free_recon_tools/recon_extension.html): VS Code extension for scaffolding, running, and debugging invariant tests in-editor. Install from VS Code Marketplace, Open VSX (Cursor), or build from source. Features: automatic project compilation, contract selection for target function scaffolding, three testing modes (Normal, Fail for canary tests, Catch for revert testing), two actor modes (Actor via _getActor(), Admin via address(this)), auto-mocking via ABI to Mock tool, in-editor Echidna/Medusa execution, automatic report generation with markdown property results, coverage report compression (removes untouched contracts), VS Code coverage gutters overlay, and automatic Foundry reproducer generation for broken properties with one-click test execution.
+
+- [Medusa Log Scraper](https://book.getrecon.xyz/free_recon_tools/medusa_scraper.html): Web tool at getrecon.xyz/tools/medusa that converts Medusa fuzzer logs into Foundry reproducer unit tests. Paste Medusa logs, all function calls are scraped automatically, each broken property generates a Foundry test, toggle cheatcodes as needed.
+
+- [Echidna Log Scraper](https://book.getrecon.xyz/free_recon_tools/echidna_scraper.html): Web tool at getrecon.xyz/tools/echidna that converts Echidna traces into Foundry reproducer unit tests. Built on the open source Log Parser NPM package. Handles complex multi-call traces and generates properly formatted Solidity test code.
+
+- [Halmos Log Scraper](https://book.getrecon.xyz/free_recon_tools/halmos_log_scrapper.html): Web tool at getrecon.xyz/tools/halmos that converts Halmos logs into Foundry reproducer unit tests. Requires running Halmos with -vv verbosity and stripping ANSI codes. Struct definitions not yet supported (manual fix needed).
+
+- [Handler Builder](https://book.getrecon.xyz/free_recon_tools/builder.html): Web tool at getrecon.xyz/tools/sandbox that scaffolds an invariant testing suite in seconds. Paste a contract ABI from Foundry's out directory, specify the contract name, download generated files including all Chimera Framework contracts and fuzzer configs.
+
+- [Bytecode Compare](https://book.getrecon.xyz/free_recon_tools/bytecode_compare.html): Web tool at getrecon.xyz/tools/bytecode-compare that generates a diff between two contract bytecodes with an option to ignore metadata.
+
+- [Bytecode To Interface](https://book.getrecon.xyz/free_recon_tools/bytecode_to_interface.html): Web tool at getrecon.xyz/tools/bytecode-to-interface that generates a Solidity interface from contract bytecode. Accepts bytecode via RPC URL + address or direct paste.
+
+- [Bytecode Static Deployment](https://book.getrecon.xyz/free_recon_tools/bytecode_static_deployment.html): Web tool at getrecon.xyz/tools/bytecode-static-deployment-tool that generates initcode (constructor bytecode) from deployed EVM contract bytecode.
+
+- [Bytecode Formatter](https://book.getrecon.xyz/free_recon_tools/bytecode_formatter.html): Web tool at getrecon.xyz/tools/bytecode-formatter that formats bytecode or calldata into 32-byte rows with function selector extraction.
+
+- [String To Bytes](https://book.getrecon.xyz/free_recon_tools/bytecode_string.html): Web tool at getrecon.xyz/tools/bytecode-string-tool that converts strings (under 32 bytes) to UTF-8 bytes encoding with length parameter, showing padded and unpadded output.
+
+- [OpenZeppelin Roles Scraper](https://book.getrecon.xyz/free_recon_tools/openzeppelin_roles_scraper.html): Web tool at getrecon.xyz/tools/roles that scrapes roles from contract ABIs, retrieves role member addresses (for Enumerable Roles extensions), and generates role hash IDs from role names. Uses WhatsABI to infer contract ABI.
+
+### Open Source Repositories
+
+- [Chimera](https://book.getrecon.xyz/oss/chimera.html): The core smart contract property-based testing framework. Write once, run on Foundry, Echidna, Medusa, and Halmos. Install with `forge install Recon-Fuzz/chimera`. Addresses three common issues: boilerplate code, difficulty switching tools, and sharing results between tools. Limitation: only supports HEVM cheatcodes (Foundry-specific cheatcodes cause errors with Echidna/Medusa). Medusa supports etch but Echidna does not.
+
+- [Create Chimera App](https://book.getrecon.xyz/oss/create_chimera_app.html): Foundry template bootstrapping an invariant fuzz testing suite with Chimera pre-configured. Works out of the box with Foundry, Echidna, Medusa, and Halmos. Initialize with `forge init --template https://github.com/Recon-Fuzz/create-chimera-app`. Ships with a Counter contract example, property tests, and configuration files. A no-boilerplate variant is also available.
+
+- [Log Parser](https://book.getrecon.xyz/oss/logs_parser.html): TypeScript NPM package (@recon-fuzz/log-parser) for converting Medusa and Echidna traces into Foundry reproducer unit tests programmatically. API: processLogs(logs, tool) returns FuzzingResults with duration, coverage, failed/passed counts, results, traces, brokenProperties, and numberOfTests. Conversion functions handle VM state manipulation, actor simulation, function call sequences, and special data types.
+
+- [ABI to Invariants](https://book.getrecon.xyz/oss/abi_to_invariants.html): Tool that creates target functions and Create Chimera App boilerplate from a contract ABI. Available via the Invariants Builder web UI. Only scrapes non-view/pure functions from the ABI.
+
+- [ABI to Mock](https://book.getrecon.xyz/oss/abi_to_mock.html): NPM package and CLI tool that generates fully functional Solidity mock contracts from ABI files. Supports complex data types including structs and nested arrays. Generated mocks include complete function signatures and setter functions for return values. Install with `npm install abi-to-mock`. Available as CLI (`npx abi-to-mock <abi-file>`), Node.js library, and browser API.
+
+- [Setup Helpers](https://book.getrecon.xyz/oss/setup_helpers.html): Contracts for speeding up invariant testing suite setup. ActorManager: source of truth for actors, provides _addActor, _switchActor, asActor modifier (pranks as current actor), and asAdmin modifier (calls as tester contract). AssetManager: tracks all assets, provides _newAsset (deploys MockERC20), _getAsset (clamp values), _finalizeAssetDeployment (mint to actors and approve to contracts). Utils: checkError function supporting error strings, custom errors, and panic reverts. Panic library: named variables for compiler panic messages (assertionPanic, arithmeticPanic, divisionPanic, enumPanic, arrayPanic, emptyArrayPanic, outOfBoundsPanic, memoryPanic, functionPanic). MockERC20: minimal ERC20 mock without external dependencies.
+
+- [Properties Table](https://book.getrecon.xyz/oss/properties.html): Template for tracking properties implemented in an invariant testing suite using the format from Recon engagements. Examples from Liquity Governance and eBTC engagements.
+
+- [ERC7540 Reusable Properties](https://book.getrecon.xyz/oss/erc7540.html): Reusable property library for ERC-7540 asynchronous vaults, written in collaboration with Centrifuge. Seven properties covering: convertToAssets/convertToShares consistency (high level), max* never reverts (DOS invariant), claiming more than max always reverts (stateful test), requestRedeem balance check (stateful test), preview* always reverts (stateful test), and if max > 0 then method(max) should not revert (DOS invariant). Install with `forge install Recon-Fuzz/erc7540-reusable-properties --no-commit`.
+
+### Reference
+
+- [Glossary](https://book.getrecon.xyz/glossary.html): Definitions of key terms used throughout the documentation. Actor: address performing calls to TargetFunctions. CryticTester: the fuzzer's entry point contract inheriting all handlers. CryticToFoundry: Foundry test contract for reproducing broken property call sequences. Clamping: reducing fuzzer search space by excluding meaningless input values. Dynamic Deployment: adding handlers that deploy new contracts with fuzzer-controlled configuration. Invariant Testing: testing logical statements about smart contracts using fuzzers or formal verifiers. Property: a testable logical statement about a contract or system. Reproducer: a tool-generated call trace that breaks a property. Invariant: a property that should always hold. Fuzzer: a program performing stateful tests (concrete, concolic, or symbolic). Handler: a wrapper around a target function call. Target Function: the set of functions called by the fuzzer. Shrinking: removing unnecessary calls from a breaking sequence. Line Coverage: reaching a specific line in the targeted contract. Logical Coverage: frequency of reaching all possible logical paths. Scaffolding: the smart contracts organizing code and telling the fuzzer how to explore. Echidna: concrete fuzzer in Haskell using HEVM. Medusa: concrete fuzzer in Go using GETH. Halmos: symbolic fuzzer in Python using SEVM.
+
+### Security and Process
+
+- [OpSec Resources](https://book.getrecon.xyz/opsec/op_sec.html): Operational security resources for web3 teams. Covers smart contract security (link to rekt.news leaderboard), governance security (multisig best practices, hardware wallet reviews), web2 tools (calldata decoder), and physical opsec (physical bitcoin attack list). Recon offers 1-hour security consultations and ongoing security retainers for multisig operation review.
+
+- [The Recon Invariant Audit Process](https://book.getrecon.xyz/extra/audit_process.html): Eight-step audit process. Step 0: Scoping (lead auditor and team review code with invariants engineers). Step 1: Getting to Coverage (invariants engineer achieves full coverage, deciding when to mock). Step 2: Writing Properties (team specifies properties after workshop). Step 2.1: Invariant Writing Workshop (1+ hour workshop on property types with examples). Step 3: Breaking Properties and Iterating (investigating broken properties, leaving only true positives, building extensive corpus). Step 4: Manual Review (balance of fuzz testing, differential reviewing, economic research). Step 5: Writing New Properties (auditor's precondition-based properties). Step 6: Investigating Broken Properties and Escalating Severity (using optimization mode). Step 7: Invariants Report (Foundry repro trophies for each broken property). Step 8: Audit Report (GitHub repo with line comments and filed issues).
+
+- [Recon vs. Foundry vs. Echidna/Medusa: Comparison](https://book.getrecon.xyz/extra/comparison.html): Technical comparison across 16 capabilities. Recon advantages: multi-tool compatibility (write once for 5 tools), managed cloud infrastructure, native CI/CD campaigns, Telegram/webhook alerts, cloud-persisted corpus, AI-assisted setup (Recon Magic), ABI-to-handler generation, automatic cross-tool reproducer generation, built-in dynamic variable replacement, governance fuzzing, cloud-hosted optimization mode (100M+ tests), combined fuzzing and formal verification, compressed VS Code coverage overlays, reusable properties libraries, and comprehensive setup helpers. Foundry is best for quick local iteration. Echidna/Medusa standalone is best for short exploratory sessions. All three are complementary via Chimera.
+
+### Roadmap
+
+- [Roadmap](https://book.getrecon.xyz/extra/roadmap.html): The Chimera roadmap. Create Chimera App is in its second iteration. Completed milestones: enforcing TargetFunctions contract for state exploration, creating managers for dynamic config and deployments, standardizing handler patterns. Future goals for Create Chimera App 3: template types for any Manager form, refined ghost variable usage with inductive simplifications, formal methods for automatic target function clamping, formal methods for fuzzer abstraction, and conversion to concolic/category-based fuzzing for checking concrete paths once then optimizing.
+
+## Key Technical Concepts
+
+### What is Invariant Testing?
+
+Invariant testing is the act of testing logical statements about smart contracts using tools that manipulate their state randomly (fuzzers) or by following all possible paths (formal verifiers). Properties are logical statements about expected system behavior tested after state-changing operations. Invariants are properties that should always hold true after any state-changing operation. For example, for an ERC20 token: a property might be "a user's balance should increase only after calls to transfer and mint," while an invariant would be "the sum of user balances should never exceed totalSupply."
+
+### What is the Chimera Framework?
+
+Chimera is a "write once, run everywhere" smart contract property-based testing framework. Previously, writing tests for Foundry, Echidna, Medusa, Halmos, and Kontrol required different formats and separate test suites. Chimera solves this by providing scaffolding so tests written in Foundry-familiar format automatically work with all tools. The framework consists of six contracts: Setup (deployment configuration), TargetFunctions (functions called by the fuzzer), Properties (assertions checked after state changes), BeforeAfter (ghost variable tracking), CryticTester (fuzzer entry point), and CryticToFoundry (debugging broken properties as Foundry unit tests).
+
+### What is Stateful Fuzzing?
+
+Stateful fuzzing manipulates the state of deployed contracts by chaining randomized calls to handler functions into sequences. This gives the fuzzer the ability to manipulate contract state in all possible ways a user might, then test assertions at any point. This is distinct from stateless fuzzing which only calls individual functions with random inputs. Recon primarily uses Echidna (Haskell, HEVM engine) and Medusa (Go, GETH engine) for concrete stateful fuzzing.
+
+### What are Handlers?
+
+Handlers are wrapper functions around target contract functions. They allow adding clamping (input value restrictions) before the call and property assertions after the call. Clamped handlers should be a subset of unclamped handlers, calling the unclamped version with clamped inputs. This ensures the fuzzer does not become overbiased while still exploring the full search space via unclamped handlers. Only state-changing (non-view/pure) functions should have handlers, as they are the only ones that change system state.
+
+### What are Ghost Variables?
+
+Ghost variables track system state over time using the BeforeAfter contract pattern. The updateGhosts modifier caches state before and after each target function call. Ghost variable updates should avoid computation and never contain assertions or operations that may revert (which would create fuzzer blindspots by preventing edge case exploration). The OpType enum pattern allows grouping handlers by effect (ADD, REMOVE, GENERIC) for targeted property checks.
+
+### What is Clamping?
+
+Clamping reduces the search space for the fuzzer, making it more likely to explore interesting states. For example, clamping a deposit amount to be between 1 and a user's balance prevents wasted calls that would always revert. Implicit clamping occurs naturally from the suite's setup configuration, deployment parameters, and exposed target functions. Over-clamping is a common mistake that can cause bugs to be missed. The Recon team documented a case where excessive clamping caused them to miss a bug.
+
+### What is Optimization Mode?
+
+Echidna's optimization mode defines test functions that return int256 values, and the fuzzer attempts to maximize the returned value. This is used to determine the maximum possible impact of a vulnerability. The workflow is: (1) write a property that breaks, (2) define an optimization function returning the metric of interest, (3) run with `--test-mode optimization` for millions of tests. Define separate optimization tests for increases and decreases to avoid missing exploit paths. Production runs typically use 100,000,000 to 500,000,000 tests. Results allow escalating vulnerability severity (demonstrated in the Liquity V2 case study where a "1 second precision loss" was escalated to critical severity worth millions of dollars in voting power inflation).
+
+### What is Dynamic Replacement?
+
+Dynamic replacement enables testing multiple contract configurations without separate branches. Variables in Setup.sol are replaced before each fuzzing run. Use cases include toggling boolean feature flags, testing different token decimal values (6, 8, 18), and swapping contract addresses for cross-chain fork testing. Each replacement runs as a separate parallel job.
+
+### What is Governance Fuzzing?
+
+Governance fuzzing monitors on-chain events from a specified contract, extracts event parameters, injects them into Setup.sol via dynamic replacement, and auto-triggers a fuzzing job. The primary use case is testing governance proposals during the voting period before on-chain execution, giving teams time to identify issues before changes go live.
+
+### What is Recon Magic?
+
+Recon Magic provides AI-powered (Claude Sonnet and Opus) automation workflows for fuzzing suite creation. Available workflows range from full end-to-end automation (scout, setup, properties, coverage) to focused tasks (coverage only, properties only). AI agents analyze codebases, make setup decisions, scaffold suites, generate handlers and properties, and optimize coverage. Each workflow step is committed to a new GitHub repository for transparency and traceability.
+
+## Frequently Asked Questions
+
+### How do I get started with invariant testing?
+
+Start with the "First Day At Invariant School" Substack series, then follow the Example Project tutorial. Use `forge init --template https://github.com/Recon-Fuzz/create-chimera-app` to create a new project. Alternatively, use the Recon Extension in VS Code for one-click scaffolding. The four-part bootcamp provides a comprehensive path from zero knowledge to finding real-world vulnerabilities.
+
+### How does Chimera differ from Foundry's built-in invariant testing?
+
+Chimera lets you write tests once and run them on five tools (Foundry, Echidna, Medusa, Halmos, Kontrol) versus Foundry's single-tool approach. Chimera also provides structured scaffolding (Setup, TargetFunctions, Properties, BeforeAfter, CryticTester, CryticToFoundry), setup helpers (ActorManager, AssetManager, MockERC20, Utils, Panic), and automatic reproducer generation across tools.
+
+### What is the difference between Echidna and Medusa?
+
+Echidna is a concrete fuzzer written in Haskell using HEVM as its EVM engine. Medusa is a concrete fuzzer written in Go using GETH for the EVM engine. Both support stateful fuzzing and assertion-based testing. Echidna uniquely supports optimization mode for maximizing vulnerability impact. Medusa supports the etch cheatcode while Echidna does not. Both are supported by Recon's cloud runner and the Chimera framework.
+
+### What is Recon Pro and how much does it cost?
+
+Recon Pro is the cloud service that unlocks advanced features: cloud execution of all five tools, automated CI/CD runs, automated reproducer generation, recipes, shareable reports, corpus reuse, dynamic replacement, governance fuzzing, and Recon Magic AI workflows. Pro accounts are activated by the Recon team. Contact via Discord for pricing information.
+
+### Can I use Recon with private repositories?
+
+Yes. Install the Recon GitHub App at Dashboard > Installs, select which repositories to grant access to. The app has read-only access (cannot modify repositories except writing Issues for Campaigns). Private repos then appear in repository dropdowns for jobs and Magic workflows.
+
+### What tools does Recon support?
+
+Recon supports five tools: Echidna (Haskell fuzzer), Medusa (Go fuzzer), Foundry (Solidity fuzzer), Halmos (Python symbolic verifier), and Kontrol (K Framework formal verifier). All can be run locally or in Recon's cloud. The Chimera framework provides write-once compatibility across all five.
+
+### How do I convert fuzzer logs into Foundry tests?
+
+Use the web-based log scrapers at getrecon.xyz/tools/echidna, getrecon.xyz/tools/medusa, or getrecon.xyz/tools/halmos. Paste the fuzzer output, and the tool generates Foundry unit tests automatically. The Recon Extension also auto-generates reproducers when properties break. Programmatically, use the @recon-fuzz/log-parser NPM package.
+
+### How do I achieve full coverage?
+
+Follow the coverage phase methodology: run the fuzzer, read the coverage report (green = reached, red = not reached), trace green lines until you find red ones, debug with Foundry unit tests in CryticToFoundry, add clamped handlers to guide the fuzzer past reverting paths, mock periphery contracts whose behavior is irrelevant, and use canary properties to verify functions are being reached. Focus on meaningful interactions (public/external state-changing functions and their internal call flows) rather than blindly pursuing 100% line coverage.
+
+### When should I use optimization mode?
+
+Use optimization mode after a property breaks with a small impact (such as a 1 wei price change) to determine if the impact can be made larger. Define separate optimization tests for increases and decreases. Run for 100M+ tests for thorough exploration. Stop when either (a) the value is sufficiently large to prove the desired severity, or (b) after several million tests with no increase, indicating the maximum has been reached. Always download and reuse corpus from cloud runs for local shrinking.
+
+### What is the four-phase invariant testing process?
+
+Phase 1 Setup: deploy contracts in a meaningful state. Phase 2 Coverage: achieve line coverage over contracts of interest using handlers, clamping, and mocking. Phase 3 Write Properties: define properties in English then implement in Solidity. Phase 4 Iterate: reflect on properties and setup, add more properties, improve state exploration. The Recon team follows these phases on all engagements.
+
+## Contact and Links
+
+- Website: https://getrecon.xyz
+- Documentation: https://book.getrecon.xyz
+- Discord: https://discord.gg/aCZrCBZdFd
+- Twitter/X: https://x.com/getrecon
+- GitHub: https://github.com/Recon-Fuzz
+- Substack: https://getrecon.substack.com
+- Recon Pro Dashboard: https://getrecon.xyz/dashboard
+- Engagement Inquiry: https://landing.getrecon.xyz/
+- VS Code Extension: https://marketplace.visualstudio.com/items?itemName=Recon-Fuzz.recon
+- Cursor Extension: https://open-vsx.org/extension/Recon-Fuzz/recon
+- Bootcamp Videos: https://getrecon.xyz/bootcamp
+- Video Tutorials: https://getrecon.xyz/media
