@@ -27,11 +27,21 @@
   --search-mark-bg: rgba(113, 96, 232, 0.3);
 }
 
-/* 2. Content area: wider max-width + consistent padding
-   ----------------------------------------------------- */
+/* 2. Content area: wider max-width + slight left bias
+   ---------------------------------------------------- */
 .content main {
   max-width: 900px;
   padding: 0 24px 60px 24px;
+  margin-inline-start: 2%;
+  margin-inline-end: auto;
+}
+
+/* When right TOC is present, add modest right margin so content
+   doesn't crowd the fixed TOC — but keep it readable, not shoved left */
+@media (min-width: 1201px) {
+  body:has(#right-toc) .content main {
+    margin-right: 280px;
+  }
 }
 
 /* 3. Typography
