@@ -1,6 +1,6 @@
 # Campaigns
 
-> **TL;DR:** Recon Campaigns integrate cloud fuzzing into CI/CD pipelines. When code is pushed to a monitored branch, Recon automatically triggers a fuzzing job using a saved Recipe, then posts results — including Foundry unit test reproducers for every broken property — as PR comments on GitHub.
+> **TL;DR:** Recon Campaigns integrate cloud fuzzing into CI/CD pipelines. Push code to a monitored branch and Recon triggers a fuzzing job using a saved Recipe. Results, including Foundry unit test reproducers for every broken property, get posted as PR comments on GitHub.
 
 Campaigns are CI/CD automations that automatically run cloud fuzzing jobs when commits are pushed to a specified branch. They integrate directly into your development workflow by running fuzzing tests on pull requests and providing immediate feedback through PR comments.
 

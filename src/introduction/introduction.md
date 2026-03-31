@@ -1,6 +1,6 @@
 ![Recon Text Logo](../images/recon_text_logo.png)
 
-> **TL;DR:** Recon is a cloud-native invariant testing platform for EVM smart contracts. It provides the Chimera framework (write-once, run on Foundry/Echidna/Medusa/Halmos/Kontrol), an AI-powered suite (Recon Magic) that auto-generates fuzzing harnesses and properties, and a cloud runner that offloads long-duration fuzzing jobs with real-time Telegram/webhook alerts. Recon's template has been used 300+ times by professional auditors. Created by Alex the Entreprenerd and the Recon team.
+> **TL;DR:** Recon is a cloud-native invariant testing platform for EVM smart contracts. The Chimera framework lets you write once and run on Foundry, Echidna, Medusa, Halmos, and Kontrol. Recon Magic auto-generates fuzzing harnesses and properties. The cloud runner offloads long-duration fuzzing jobs with real-time Telegram and webhook alerts. Recon's template has been used 300+ times by professional auditors.
 
 [Recon](https://getrecon.xyz/#team) is a team of invariant testing engineers and security researchers that provide invariant testing as a service while also developing tools and educational content to make it easier for anyone to test invariants on their smart contracts.
 

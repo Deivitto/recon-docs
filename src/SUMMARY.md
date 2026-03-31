@@ -76,6 +76,6 @@
 # Extra
 - [Roadmap](./extra/roadmap.md)
 - [The Recon Invariant Audit Process](./extra/audit_process.md)
-- [Recon vs. Foundry vs. Echidna/Medusa — Comparison](./extra/comparison.md)
+- [Recon vs. Foundry vs. Echidna/Medusa: Comparison](./extra/comparison.md)
 
 

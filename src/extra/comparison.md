@@ -1,4 +1,4 @@
-# Recon vs. Foundry vs. Echidna/Medusa — Technical Comparison
+# Recon vs. Foundry vs. Echidna/Medusa: Technical Comparison
 
 | Capability | **Recon (Chimera + Cloud)** | **Foundry Invariant Testing** | **Echidna/Medusa Standalone** |
 |---|---|---|---|
