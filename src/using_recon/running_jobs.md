@@ -1,7 +1,5 @@
 # Cloud Fuzzing for Smart Contracts: Running Jobs with Recon
 
-> **TL;DR:** Recon Pro runs Echidna, Medusa, Foundry, Halmos, and Kontrol jobs in the cloud. Users submit a GitHub repo URL, select a tool and configuration, and Recon executes the job on managed infrastructure. Jobs support corpus reuse, dynamic variable replacement, and real-time sharing. This eliminates local resource constraints for multi-day fuzzing campaigns.
-
 The jobs page is where you can run new fuzzing jobs on Recon's cloud service and see existing jobs you've run.
 
 Using Recon's Job running feature you can offload long-duration jobs to Recon's cloud service so you don't waste computational resources locally and can run long-term jobs without worrying about something failing at the last minute because of something you did on your local machine.

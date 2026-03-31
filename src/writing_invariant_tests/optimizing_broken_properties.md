@@ -1,7 +1,5 @@
 # Echidna Optimization Mode: Maximize Vulnerability Impact
 
-> **TL;DR:** Echidna's optimization mode maximizes an int256 return value across randomized call sequences, letting auditors quantify the maximum exploitable impact of a broken property. Best practice: define separate optimization tests for increases and decreases of the target metric, as different call sequences may produce opposite effects. Optimization runs should use 100M-500M test limits on the Recon cloud runner for production codebases.
-
 Echidna's [optimization mode](https://secure-contracts.com/program-analysis/echidna/advanced/optimization_mode.html?highlight=optim#optimizing-with-echidna) is a powerful tool for understanding the maximum possible impact of a vulnerability discovered by a broken property. 
 
 Optimization mode often allows you to determine if the impact of a vulnerability can be greater than what's shown by the originally broken property or if it's minimal because it isn't increased by the optimization test.

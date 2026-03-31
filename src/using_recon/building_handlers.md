@@ -1,7 +1,5 @@
 # How to Write Handlers for Fuzzing Solidity Contracts
 
-> **TL;DR:** Handlers are wrapper functions around target contract calls that let you add input clamping (search space reduction) and inline property assertions in a single execution. Recon auto-generates handlers from a contract's ABI JSON via the web-based Invariants Builder or the VS Code extension. The generated scaffolding works with Echidna, Medusa, and Foundry without configuration changes.
-
 **Video Tutorial:** [The Recon Sandbox](https://www.youtube.com/watch?v=1dhEHJt5z6E) (1min)
 
 ## What Are Handlers?
