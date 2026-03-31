@@ -1,4 +1,4 @@
-# Recon — Cloud Invariant Testing for Smart Contracts
+# Recon -Cloud Invariant Testing for Smart Contracts
 # https://getrecon.xyz | https://book.getrecon.xyz
 
 ## What is Recon
@@ -19,53 +19,53 @@ Protecting $3B+ DeFi TVL. Clients include Liquity, Centrifuge, Badger, Corn, Bal
 ## Documentation Hierarchy
 
 ### Getting Started
-- /introduction/introduction.html — Platform overview and navigation guide
-- /using_recon/getting_started.html — Account creation and GitHub App setup
-- /using_recon/upgrading_to_pro.html — Pro features and access
+- /introduction/introduction.html -Platform overview and navigation guide
+- /using_recon/getting_started.html -Account creation and GitHub App setup
+- /using_recon/upgrading_to_pro.html -Pro features and access
 
-### Core Concepts — Writing Invariant Tests
-- /writing_invariant_tests/learn_invariant_testing.html — Beginner guide with external resources
-- /writing_invariant_tests/example_project.html — End-to-end tutorial: Points contract with deposit overflow bug
-- /writing_invariant_tests/implementing_properties.html — Property types (Valid States, State Transitions, Variable Transitions, High-Level, Unit Tests), inlined vs global, ERC4626 examples
-- /writing_invariant_tests/optimizing_broken_properties.html — Echidna optimization mode to maximize vulnerability impact
-- /writing_invariant_tests/advanced.html — Clamping, programmatic deployment, ghost variables, implicit clamping, stateless handlers
-- /writing_invariant_tests/chimera_framework.html — Framework architecture: Setup, TargetFunctions, Properties, BeforeAfter, CryticTester, CryticToFoundry, Assertions
+### Core Concepts -Writing Invariant Tests
+- /writing_invariant_tests/learn_invariant_testing.html -Beginner guide with external resources
+- /writing_invariant_tests/example_project.html -End-to-end tutorial: Points contract with deposit overflow bug
+- /writing_invariant_tests/implementing_properties.html -Property types (Valid States, State Transitions, Variable Transitions, High-Level, Unit Tests), inlined vs global, ERC4626 examples
+- /writing_invariant_tests/optimizing_broken_properties.html -Echidna optimization mode to maximize vulnerability impact
+- /writing_invariant_tests/advanced.html -Clamping, programmatic deployment, ghost variables, implicit clamping, stateless handlers
+- /writing_invariant_tests/chimera_framework.html -Framework architecture: Setup, TargetFunctions, Properties, BeforeAfter, CryticTester, CryticToFoundry, Assertions
 
 ### Bootcamp (4-part tutorial series)
-- /bootcamp/bootcamp_intro.html — Overview and prerequisites
-- /bootcamp/bootcamp_part_1.html — Scaffolding, setup, initial coverage
-- /bootcamp/bootcamp_part_2.html — Full coverage and multidimensional testing
-- /bootcamp/bootcamp_part_3.html — Writing and breaking properties
-- /bootcamp/bootcamp_part_4.html — Liquity Governance case study with optimization
+- /bootcamp/bootcamp_intro.html -Overview and prerequisites
+- /bootcamp/bootcamp_part_1.html -Scaffolding, setup, initial coverage
+- /bootcamp/bootcamp_part_2.html -Full coverage and multidimensional testing
+- /bootcamp/bootcamp_part_3.html -Writing and breaking properties
+- /bootcamp/bootcamp_part_4.html -Liquity Governance case study with optimization
 
 ### Using Recon Pro
-- /using_recon/building_handlers.html — ABI-to-handler generation
-- /using_recon/running_jobs.html — Cloud job execution (Echidna, Medusa, Foundry, Halmos, Kontrol)
-- /using_recon/recipes.html — Saved job configurations for reuse
-- /using_recon/alerts.html — Telegram and webhook notifications on broken properties
-- /using_recon/campaigns.html — CI/CD: auto-fuzz on push, PR comment integration
-- /using_recon/dynamic_replacement.html — Variable swapping for multi-config testing
-- /using_recon/governance_fuzzing.html — On-chain event monitoring + auto-trigger
-- /using_recon/recon_magic.html — AI workflows: Scout, Setup, Coverage, Properties (Sonnet + Opus)
-- /using_recon/recon_tricks.html — Exploration mode, corpus reuse, optimization, dynamic replacement tips
+- /using_recon/building_handlers.html -ABI-to-handler generation
+- /using_recon/running_jobs.html -Cloud job execution (Echidna, Medusa, Foundry, Halmos, Kontrol)
+- /using_recon/recipes.html -Saved job configurations for reuse
+- /using_recon/alerts.html -Telegram and webhook notifications on broken properties
+- /using_recon/campaigns.html -CI/CD: auto-fuzz on push, PR comment integration
+- /using_recon/dynamic_replacement.html -Variable swapping for multi-config testing
+- /using_recon/governance_fuzzing.html -On-chain event monitoring + auto-trigger
+- /using_recon/recon_magic.html -AI workflows: Scout, Setup, Coverage, Properties (Sonnet + Opus)
+- /using_recon/recon_tricks.html -Exploration mode, corpus reuse, optimization, dynamic replacement tips
 
 ### Free Tools
-- /free_recon_tools/recon_extension.html — VS Code extension: scaffold, run, debug, coverage overlay
-- /free_recon_tools/medusa_scraper.html — Medusa logs → Foundry reproducer
-- /free_recon_tools/echidna_scraper.html — Echidna logs → Foundry reproducer
-- /free_recon_tools/builder.html — ABI → handler/invariant scaffolding
-- /free_recon_tools/bytecode_compare.html — Bytecode diff tool
-- /free_recon_tools/bytecode_to_interface.html — Bytecode → Solidity interface
+- /free_recon_tools/recon_extension.html -VS Code extension: scaffold, run, debug, coverage overlay
+- /free_recon_tools/medusa_scraper.html -Medusa logs >Foundry reproducer
+- /free_recon_tools/echidna_scraper.html -Echidna logs >Foundry reproducer
+- /free_recon_tools/builder.html -ABI >handler/invariant scaffolding
+- /free_recon_tools/bytecode_compare.html -Bytecode diff tool
+- /free_recon_tools/bytecode_to_interface.html -Bytecode >Solidity interface
 
 ### Open Source
-- /oss/chimera.html — Chimera framework (Foundry + Echidna + Medusa + Halmos)
-- /oss/create_chimera_app.html — Foundry template with Chimera pre-configured
-- /oss/setup_helpers.html — ActorManager, AssetManager, MockERC20, Utils, Panic
-- /oss/properties.html — Properties tracking table template
-- /oss/erc7540.html — ERC-7540 reusable property library (with Centrifuge)
+- /oss/chimera.html -Chimera framework (Foundry + Echidna + Medusa + Halmos)
+- /oss/create_chimera_app.html -Foundry template with Chimera pre-configured
+- /oss/setup_helpers.html -ActorManager, AssetManager, MockERC20, Utils, Panic
+- /oss/properties.html -Properties tracking table template
+- /oss/erc7540.html -ERC-7540 reusable property library (with Centrifuge)
 
 ### Reference
-- /glossary.html — Definitions: handler, clamping, property, invariant, reproducer, shrinking, coverage
+- /glossary.html -Definitions: handler, clamping, property, invariant, reproducer, shrinking, coverage
 
 ## Key Technical Terms
 - Invariant Testing: testing logical statements about smart contracts using fuzzers or formal verifiers
@@ -77,7 +77,7 @@ Protecting $3B+ DeFi TVL. Clients include Liquity, Centrifuge, Badger, Corn, Bal
 - Chimera: write-once multi-tool testing framework (Foundry/Echidna/Medusa/Halmos/Kontrol)
 - CryticTester: single entry-point contract for fuzzers inheriting all handlers
 - Dynamic Replacement: variable substitution in Setup.sol for multi-config cloud runs
-- Governance Fuzzing: on-chain event → auto-trigger cloud fuzzing with parameter injection
+- Governance Fuzzing: on-chain event >auto-trigger cloud fuzzing with parameter injection
 - Recon Magic: AI agents automating scout/setup/coverage/properties workflows
 
 ## Factual Claims (citable)

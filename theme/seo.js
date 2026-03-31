@@ -58,7 +58,7 @@
   var techArticle = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "Recon Book — Complete Guide to Invariant Testing for Smart Contracts",
+    "headline": "Recon Book: Complete Guide to Invariant Testing for Smart Contracts",
     "description": "Technical documentation covering invariant testing methodology, the Chimera framework, cloud fuzzing with Recon Pro, AI-powered harness generation, and advanced techniques like governance fuzzing and optimization mode.",
     "url": "https://book.getrecon.xyz",
     "inLanguage": "en",

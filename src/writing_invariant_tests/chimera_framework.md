@@ -1,4 +1,4 @@
-# Chimera — Solidity Property-Based Testing Framework
+# Chimera: Solidity Property-Based Testing Framework
 
 > **TL;DR:** Chimera is an open-source Solidity framework for writing property-based tests that run on Foundry, Echidna, Medusa, and Halmos without modification. It uses an inheritance structure (Setup → BeforeAfter → Properties → TargetFunctions → CryticTester) that separates deployment, state tracking, property definitions, and handler logic. Broken properties are automatically convertible to Foundry unit tests via the CryticToFoundry contract.
 
