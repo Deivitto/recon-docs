@@ -6,7 +6,7 @@ echo "Building mdBook..."
 mdbook build
 
 echo "Copying SEO assets to book/..."
-cp robots.txt llms.txt book/
+cp robots.txt llms.txt llms-full.txt book/
 
 echo "Generating sitemap..."
 bash generate-sitemap.sh
