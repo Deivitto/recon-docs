@@ -8,7 +8,7 @@ Works with both public and private repositories. For private repos, [install the
 
 ## Running Magic Jobs
 
-This section covers how Magic Jobs work, regardless of which specific workflow you choose.
+Magic Jobs are AI-powered automations that analyze your smart contracts and generate complete fuzzing suites — handlers, properties, and coverage optimization — without manual scaffolding. Here's how they work, regardless of which specific workflow you choose.
 
 ### How It Works
 
@@ -78,7 +78,7 @@ _See below for workflow-specific tutorials and details on each Magic Job type._
 
 ## Scout + Setup + Properties + Coverage
 
-The complete end-to-end workflow that takes you from raw code to a fully functional fuzzing suite with properties.
+Full-pipeline automation that analyzes your code, scaffolds the testing setup, generates handlers, writes properties, and optimizes coverage in a single job. This is the most comprehensive workflow — it takes you from raw code to a fully functional fuzzing suite.
 
 ### Requirements
 
@@ -107,7 +107,7 @@ Use this when starting from scratch and want the AI to handle everything: setup,
 
 ## Scout + Setup + Coverage
 
-A streamlined workflow that sets up your fuzzing suite optimized for coverage, without writing properties.
+Generates the fuzzing infrastructure (setup, handlers, coverage optimization) but leaves property writing to you. A streamlined workflow for teams that prefer to define their own invariants.
 
 ### Requirements
 
@@ -135,7 +135,7 @@ Use this when you want AI help with setup and coverage but prefer to write your 
 
 ## Setup + Properties + Coverage
 
-A comprehensive workflow for scaffolded projects that handles setup, property writing, and coverage optimization.
+For projects already scaffolded with Chimera, this workflow handles setup configuration, property writing, and coverage optimization — skipping the initial code analysis phase since your project structure is already in place.
 
 ### Requirements
 
@@ -163,7 +163,7 @@ Use this when you have already scaffolded your project and want Magic to handle 
 
 ## Setup + Coverage
 
-A focused workflow for scaffolded projects that creates setup and optimizes coverage without writing properties.
+Creates the testing setup and optimizes coverage for scaffolded projects, without writing properties. Use this when you want AI help with configuration and coverage but prefer to write invariants yourself.
 
 ### Requirements
 

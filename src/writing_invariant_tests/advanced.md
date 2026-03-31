@@ -4,7 +4,7 @@ This is a compilation of best practices that the Recon team has developed while 
 
 ## Target Functions
 
-For each contract you want to fuzz (your target contract), select the state-changing functions (target functions) you want to include in your fuzzing suite. Wrap the function in a handler which passes in the input to the function call and allows the fuzzer to test random values. 
+Target functions are the state-changing contract functions that the fuzzer calls to explore different system states and verify properties. For each contract you want to fuzz (your target contract), select the state-changing functions you want to include in your fuzzing suite. Wrap the function in a handler which passes in the input to the function call and allows the fuzzer to test random values. 
 
 ```javascript
 // contract to target
@@ -99,7 +99,7 @@ Doing so is perfectly okay even though it will reduce overall coverage of the ta
 To make sure it's understood by others looking at the test suite that you purposefully meant to ignore a function we tend to prefer commenting out the handler or including a `alwaysRevert` modifier that causes the handler to revert every time it's called by the fuzzer.
 
 ## Setup
-This section covers a few rules we've come to follow in our engagements regarding setting up invariant testing suites. 
+Setup is the deployment and initialization of your target contracts in a state where fuzzing can meaningfully explore them. Effective setup balances simplicity with realistic deployment scenarios. Here are the rules we've come to follow in our engagements. 
 
 1. Create your own test setup
 2. Keep the story clean
@@ -351,7 +351,7 @@ abstract contract Properties is BeforeAfter, Asserts {
 
 ## Inlined Fuzz Properties
 
-Inlined properties allow you to make an assertion about the system state immediately after a given state-changing target function call:
+Inlined properties are assertions embedded within handler functions that verify state immediately after a specific operation executes. Unlike global properties (checked after any function call), inlined properties are tied to individual functions and useful for operation-specific invariants:
 
 ```javascript
 contract Counter {
