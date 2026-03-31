@@ -27,12 +27,19 @@
   --search-mark-bg: rgba(113, 96, 232, 0.3);
 }
 
-/* 2. Content area: centered, standard readable width
+/* 2. Content area: centered relative to full viewport
    --------------------------------------------------- */
 .content main {
   max-width: 750px;
-  margin-inline: auto;
   padding: 0 24px 60px 24px;
+  /* Offset left by half sidebar width so content centers on full screen */
+  margin-left: max(24px, calc(50% - 375px - (var(--sidebar-width, 300px) + var(--sidebar-resize-indicator-width, 8px)) / 2));
+  margin-right: auto;
+}
+
+/* When sidebar is hidden, center normally */
+.sidebar-hidden .content main {
+  margin-inline: auto;
 }
 
 /* 3. Typography
