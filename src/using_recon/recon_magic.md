@@ -1,7 +1,5 @@
 # Recon Magic
 
-> **TL;DR:** Recon Magic provides AI agents that automate the full fuzzing lifecycle: codebase analysis (Scout), setup scaffolding, handler generation, coverage optimization, and property writing. Workflows range from full end-to-end automation (Scout + Setup + Properties + Coverage) to focused tasks like property generation from an existing setup. Results are committed step-by-step to a new GitHub repo with full traceability. An Opus-powered mode provides higher-quality property generation.
-
 Recon Magic provides AI-powered automations for smart contract fuzzing. While [Fuzzing Jobs](./running_jobs.md) let you run fuzzing tools in the cloud with extensive features and functionality, **Recon Magic** offers AI agents that automate the setup and optimization process.
 
 Access Recon Magic at: [getrecon.xyz/dashboard/magic](https://getrecon.xyz/dashboard/magic)

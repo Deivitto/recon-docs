@@ -1,7 +1,5 @@
 # Governance Proposal Testing Before On-Chain Execution
 
-> **TL;DR:** Governance Fuzzing monitors on-chain events (e.g., GovernorProposalCreated) and automatically triggers cloud fuzzing jobs when those events fire. Event parameters are injected into Setup.sol via Dynamic Replacement, letting teams test governance proposals against their invariant suite before on-chain execution. This enables pre-execution validation of parameter changes, admin actions, and emergency operations.
-
 Governance fuzzing allows you to automatically trigger fuzzing jobs in response to on-chain events. This is particularly useful for testing how governance proposals or system configuration changes affect your invariants before they are executed on-chain.
 
 **Video Tutorial:** [Governance Fuzzing](https://www.youtube.com/watch?v=nrPCa59nl9M) (2min)

@@ -1,7 +1,5 @@
 # Implementing Properties
 
-> **TL;DR:** Properties are logical statements tested after state-changing operations. They can be inlined (assertions inside handlers, checked only after that handler's call) or global (standalone public functions checked after any handler call). The five property categories are: Valid States, State Transitions, Variable Transitions, High-Level Properties, and Unit Tests. Ghost variables tracked in BeforeAfter structs enable before/after state comparison. Operation type grouping (ADD/REMOVE/GENERIC) via enums allows scoping global properties to specific operation classes.
-
 Implementing properties is the most important part of invariant testing, here we'll look at the [different types](#property-types) of properties that you can define and [how these can be implemented](#inlined-vs-global-properties) (inlined or global) along with the different techniques that you can use to [implement your properties](#example) as code using an ERC4626 vault as an example.
 
 ## What are properties? 
