@@ -208,11 +208,47 @@
   scriptFaq.textContent = JSON.stringify(faqSchema);
   document.head.appendChild(scriptFaq);
 
+  // Recency signals — load per-page last-modified dates
+  var rootPath = typeof path_to_root !== 'undefined' ? path_to_root : '';
+  fetch(rootPath + 'lastmodified.json')
+    .then(function(r) { return r.json(); })
+    .then(function(dates) {
+      var page = window.location.pathname.replace(/^\//, '');
+      if (page === '' || page.endsWith('/')) page += 'index.html';
+      var date = dates[page];
+      if (!date) return;
+      // article:modified_time meta tag
+      var meta = document.createElement('meta');
+      meta.setAttribute('property', 'article:modified_time');
+      meta.content = date + 'T00:00:00Z';
+      document.head.appendChild(meta);
+      // Update TechArticle dateModified if present
+      var ldScripts = document.querySelectorAll('script[type="application/ld+json"]');
+      for (var i = 0; i < ldScripts.length; i++) {
+        try {
+          var ld = JSON.parse(ldScripts[i].textContent);
+          if (ld['@type'] === 'TechArticle') {
+            ld.dateModified = date;
+            ldScripts[i].textContent = JSON.stringify(ld);
+          }
+        } catch(e) {}
+      }
+      // Visible "Last updated" badge
+      var contentEl = document.getElementById('content');
+      if (contentEl) {
+        var badge = document.createElement('div');
+        badge.style.cssText = 'text-align:center;font-size:0.8rem;opacity:0.6;margin-top:2rem;';
+        badge.textContent = 'Last updated: ' + date;
+        contentEl.appendChild(badge);
+      }
+    })
+    .catch(function() {});
+
   // Sitewide backlink footer to getrecon.xyz
   var content = document.getElementById("content");
   if (content) {
     var footer = document.createElement("footer");
-    footer.style.cssText = "margin-top:3rem;padding:1.5rem 0;border-top:1px solid var(--sidebar-separator,#3b3b3b);text-align:center;font-size:0.85rem;opacity:0.8;";
+    footer.style.cssText = "margin-top:1rem;padding:1.5rem 0;border-top:1px solid var(--sidebar-separator,#3b3b3b);text-align:center;font-size:0.85rem;opacity:0.8;";
     footer.innerHTML = '<a href="https://getrecon.xyz" target="_blank" rel="noopener">Recon</a> · '
       + '<a href="https://getrecon.xyz/dashboard/jobs" target="_blank" rel="noopener">Cloud Fuzzing</a> · '
       + '<a href="https://getrecon.xyz/dashboard/magic" target="_blank" rel="noopener">Recon Magic</a> · '
