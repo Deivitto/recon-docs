@@ -101,4 +101,50 @@
   script2.type = "application/ld+json";
   script2.textContent = JSON.stringify(techArticle);
   document.head.appendChild(script2);
+
+  // Canonical URL
+  var canonical = document.createElement("link");
+  canonical.rel = "canonical";
+  canonical.href = window.location.origin + window.location.pathname;
+  document.head.appendChild(canonical);
+
+  // og:url (needs runtime URL)
+  var ogUrl = document.createElement("meta");
+  ogUrl.setAttribute("property", "og:url");
+  ogUrl.content = window.location.origin + window.location.pathname;
+  document.head.appendChild(ogUrl);
+
+  // BreadcrumbList JSON-LD
+  var pathParts = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '').split('/').filter(Boolean);
+  var breadcrumbItems = [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Recon Book",
+    "item": "https://book.getrecon.xyz/"
+  }];
+  var accumulated = "https://book.getrecon.xyz";
+  for (var i = 0; i < pathParts.length; i++) {
+    accumulated += "/" + pathParts[i];
+    var name = pathParts[i]
+      .replace(/\.html$/, '')
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      "position": i + 2,
+      "name": name,
+      "item": accumulated
+    });
+  }
+  if (breadcrumbItems.length > 1) {
+    var breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems
+    };
+    var script3 = document.createElement("script");
+    script3.type = "application/ld+json";
+    script3.textContent = JSON.stringify(breadcrumbSchema);
+    document.head.appendChild(script3);
+  }
 })();
