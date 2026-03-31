@@ -1,5 +1,7 @@
 # Bootcamp Introduction
 
+> **TL;DR:** The Recon Bootcamp is a 4-part tutorial series that takes developers from zero invariant testing knowledge to breaking properties on production-like systems. It covers scaffolding with Chimera, achieving full coverage, writing and debugging properties, and using Echidna optimization mode to escalate finding severity. Based on livestreamed sessions by Alex the Entreprenerd.
+
 This bootcamp is meant to take you from no knowledge of invariant testing to a point where you feel comfortable writing invariant tests to find bugs in a production system. 
 
 The bootcamp is roughly inspired by the content covered by [Alex The Entrprenerd](https://x.com/GalloDaSballo) in the first three livestreams [here](https://getrecon.xyz/bootcamp).
