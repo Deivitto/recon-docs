@@ -27,8 +27,8 @@
   --search-mark-bg: rgba(113, 96, 232, 0.3);
 }
 
-/* 2. Content area: closer to sidebar, not dead-center
-   --------------------------------------------------- */
+/* 2. Content area: responsive layout
+   ----------------------------------- */
 .content main {
   max-width: 750px;
   padding: 0 24px 60px 24px;
@@ -39,6 +39,29 @@
 /* When sidebar is hidden, center normally */
 .sidebar-hidden .content main {
   margin-inline: auto;
+}
+
+/* Tablet: sidebar visible but less space — tighten gap, let content fill */
+@media only screen and (max-width: 1080px) {
+  .content main {
+    max-width: none;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+}
+
+/* Mobile: sidebar overlays, content needs full width */
+@media only screen and (max-width: 620px) {
+  .content main {
+    max-width: none;
+    padding: 0 12px 40px 12px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.25em; }
+  h3 { font-size: 1.1em; }
 }
 
 /* 3. Typography
@@ -138,6 +161,8 @@ h3 {
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   padding: 1.2rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .navy .content code {
@@ -160,6 +185,12 @@ h3 {
 
 /* 7. Tables
    --------- */
+.navy .content .table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5em 0;
+}
+
 .navy .content table {
   border-collapse: separate;
   border-spacing: 0;
@@ -167,7 +198,7 @@ h3 {
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
-  margin: 1.5em 0;
+  min-width: 400px;
 }
 
 .navy .content table thead tr {
@@ -280,4 +311,11 @@ h3 {
 
 .navy .theme-popup .theme:hover {
   background: rgba(113, 96, 232, 0.1);
+}
+
+/* 11. Responsive images
+   --------------------- */
+.content main img {
+  max-width: 100%;
+  height: auto;
 }
