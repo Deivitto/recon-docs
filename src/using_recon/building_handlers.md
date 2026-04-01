@@ -1,4 +1,4 @@
-# Building Handlers
+# How to Write Handlers for Fuzzing Solidity Contracts
 
 **Video Tutorial:** [The Recon Sandbox](https://www.youtube.com/watch?v=1dhEHJt5z6E) (1min)
 

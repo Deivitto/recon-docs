@@ -1,4 +1,4 @@
-# Chimera Framework
+# Chimera: Solidity Property-Based Testing Framework
 
 The Chimera framework lets you run invariant tests with Echidna and Medusa that can be easily debugged using Foundry. 
 

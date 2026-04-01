@@ -7,6 +7,8 @@ In this section, we'll use the [Create Chimera App](../oss/create_chimera_app.md
 
 ## Getting started
 
+This tutorial walks through building a complete invariant testing suite for a Points contract with a deliberate deposit overflow bug. You'll scaffold the project, write the contract, implement properties, and discover the bug through fuzzing.
+
 Clone the [create-chimera-app-no-boilerplate](https://github.com/Recon-Fuzz/create-chimera-app-no-boilerplate) repo.
 
 Or 
@@ -15,7 +17,9 @@ Use `forge init --template https://github.com/Recon-Fuzz/create-chimera-app-no-b
 
 ## Writing the contract
 
-First, in the `src/` directory we'll create a simple `Points` contract that allows users to make a deposit and earn points proportional to the amount of time that they've deposited for, where longer deposits equal more points:
+The Points contract is a simple deposit-to-earn system where users deposit tokens and accrue points proportional to their deposit duration — longer deposits earn more points. It uses `uint88` for deposit amounts, which creates an overflow vulnerability we'll catch with invariant testing.
+
+In the `src/` directory, create the contract:
 
 ```javascript
 
@@ -190,7 +194,9 @@ We can now start defining properties to see if there are any edge cases in our `
 
 --- 
 
-## Implementing Properties 
+## Implementing Properties
+
+Properties for the Points contract test two critical behaviors: prevention of arithmetic overflow in point calculations and monotonic growth of user power over time. We implement each using the Chimera framework's assertion-based pattern.
 
 ### Checking for overflow
 

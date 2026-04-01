@@ -1,4 +1,4 @@
-# Alerts
+# Telegram Alerts for Smart Contract Fuzzing
 
 Alerts allow you to receive notifications when properties break during one of your runs to allow you to quickly take action. They can be added to any [recipe](/recipes.html) and specify whether an alert should trigger a Webhook or send a message on Telegram.
 

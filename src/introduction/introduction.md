@@ -1,4 +1,4 @@
-![Recon Text Logo](../images/recon_text_logo.png)
+<img src="../images/recon_text_logo.png" alt="Recon Text Logo" style="max-width: 320px; display: block; margin: 40px auto 32px auto;" />
 
 [Recon](https://getrecon.xyz/#team) is a team of invariant testing engineers and security researchers that provide invariant testing as a service while also developing tools and educational content to make it easier for anyone to test invariants on their smart contracts.
 
@@ -61,6 +61,9 @@ Recon has created a number of open source tools to make invariant testing easier
 
 ### OpSec
 Learn about [best practices](../opsec/op_sec.md) for operational security for web3 teams and the services that Recon provides to help projects with this.
+
+### Comparison
+See how Recon compares to Foundry invariant testing and standalone Echidna/Medusa in the [technical comparison](../extra/comparison.md).
 
 ### Glossary
 See the [glossary](../glossary.md) for terminology used throughout the book.

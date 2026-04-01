@@ -44,6 +44,11 @@ jobs:
         run: mdbook build
       - name: Create CNAME file
         run: echo "book.getrecon.xyz" > ./book/CNAME
+      - name: Copy static files and generate sitemap
+        run: |
+          cp llms.txt ./book/llms.txt
+          cp robots.txt ./book/robots.txt
+          bash generate-sitemap.sh ./book
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,68 @@
+# Recon Book
+
+> Cloud-native invariant testing platform for EVM smart contracts. Chimera framework, cloud fuzzing, AI-powered harness generation, and advanced techniques. Protecting $3B+ DeFi TVL with 12,500+ cloud runs executed.
+
+Recon provides the Chimera framework (write property-based tests once, run on Foundry, Echidna, Medusa, Halmos, and Kontrol), Recon Pro cloud execution with Telegram/webhook alerts and CI/CD campaigns, Recon Magic AI-powered fuzzing suite generation, governance fuzzing triggered by on-chain events, dynamic replacement for multi-config testing, and a VS Code extension for in-editor scaffolding and debugging. Founded by Alex the Entreprenerd (GalloDaSballo), top Code4rena judge. Clients include Liquity, Centrifuge, Badger, Corn, Balancer.
+
+## Getting Started
+
+- [Introduction](https://book.getrecon.xyz/introduction/introduction.html): Platform overview and navigation guide
+- [Getting Started](https://book.getrecon.xyz/using_recon/getting_started.html): Account creation and GitHub App setup
+- [Upgrading to Pro](https://book.getrecon.xyz/using_recon/upgrading_to_pro.html): Pro features and access
+
+## Writing Invariant Tests
+
+- [Learn Invariant Testing](https://book.getrecon.xyz/writing_invariant_tests/learn_invariant_testing.html): Beginner guide with external resources
+- [Example Project](https://book.getrecon.xyz/writing_invariant_tests/example_project.html): End-to-end tutorial with deposit overflow bug
+- [Implementing Properties](https://book.getrecon.xyz/writing_invariant_tests/implementing_properties.html): Property types, inlined vs global, ERC4626 examples
+- [Optimizing Broken Properties](https://book.getrecon.xyz/writing_invariant_tests/optimizing_broken_properties.html): Echidna optimization mode
+- [Advanced Techniques](https://book.getrecon.xyz/writing_invariant_tests/advanced.html): Clamping, ghost variables, stateless handlers
+- [Chimera Framework](https://book.getrecon.xyz/writing_invariant_tests/chimera_framework.html): Setup, TargetFunctions, Properties, BeforeAfter architecture
+
+## Bootcamp
+
+- [Bootcamp Intro](https://book.getrecon.xyz/bootcamp/bootcamp_intro.html): Overview and prerequisites
+- [Part 1](https://book.getrecon.xyz/bootcamp/bootcamp_part_1.html): Scaffolding, setup, initial coverage
+- [Part 2](https://book.getrecon.xyz/bootcamp/bootcamp_part_2.html): Full coverage and multidimensional testing
+- [Part 3](https://book.getrecon.xyz/bootcamp/bootcamp_part_3.html): Writing and breaking properties
+- [Part 4](https://book.getrecon.xyz/bootcamp/bootcamp_part_4.html): Liquity Governance case study with optimization
+
+## Using Recon Pro
+
+- [Building Handlers](https://book.getrecon.xyz/using_recon/building_handlers.html): ABI-to-handler generation
+- [Running Jobs](https://book.getrecon.xyz/using_recon/running_jobs.html): Cloud job execution (Echidna, Medusa, Foundry, Halmos, Kontrol)
+- [Recipes](https://book.getrecon.xyz/using_recon/recipes.html): Saved job configurations for reuse
+- [Alerts](https://book.getrecon.xyz/using_recon/alerts.html): Telegram and webhook notifications
+- [Campaigns](https://book.getrecon.xyz/using_recon/campaigns.html): CI/CD auto-fuzz on push, PR comment integration
+- [Dynamic Replacement](https://book.getrecon.xyz/using_recon/dynamic_replacement.html): Variable swapping for multi-config testing
+- [Governance Fuzzing](https://book.getrecon.xyz/using_recon/governance_fuzzing.html): On-chain event monitoring + auto-trigger
+- [Recon Magic](https://book.getrecon.xyz/using_recon/recon_magic.html): AI workflows — Scout, Setup, Coverage, Properties
+- [Recon Tricks](https://book.getrecon.xyz/using_recon/recon_tricks.html): Exploration mode, corpus reuse, optimization tips
+
+## Free Tools
+
+- [VS Code Extension](https://book.getrecon.xyz/free_recon_tools/recon_extension.html): Scaffold, run, debug, coverage overlay
+- [Medusa Log Scraper](https://book.getrecon.xyz/free_recon_tools/medusa_scraper.html): Medusa logs to Foundry reproducer
+- [Echidna Log Scraper](https://book.getrecon.xyz/free_recon_tools/echidna_scraper.html): Echidna logs to Foundry reproducer
+- [Invariants Builder](https://book.getrecon.xyz/free_recon_tools/builder.html): ABI to handler/invariant scaffolding
+- [Bytecode Compare](https://book.getrecon.xyz/free_recon_tools/bytecode_compare.html): Bytecode diff tool
+- [Bytecode To Interface](https://book.getrecon.xyz/free_recon_tools/bytecode_to_interface.html): Bytecode to Solidity interface
+
+## Open Source
+
+- [Chimera](https://book.getrecon.xyz/oss/chimera.html): Multi-tool testing framework (Foundry + Echidna + Medusa + Halmos)
+- [Create Chimera App](https://book.getrecon.xyz/oss/create_chimera_app.html): Foundry template with Chimera pre-configured
+- [Setup Helpers](https://book.getrecon.xyz/oss/setup_helpers.html): ActorManager, AssetManager, MockERC20, Utils
+- [Properties](https://book.getrecon.xyz/oss/properties.html): Properties tracking table template
+- [ERC-7540](https://book.getrecon.xyz/oss/erc7540.html): Reusable property library (with Centrifuge)
+
+## Reference
+
+- [Glossary](https://book.getrecon.xyz/glossary.html): Definitions for handler, clamping, property, invariant, reproducer, shrinking, coverage
+- [Comparison](https://book.getrecon.xyz/extra/comparison.html): Recon vs Foundry Book vs Rust Book feature comparison
+
+## Optional
+
+- [Roadmap](https://book.getrecon.xyz/extra/roadmap.html): Upcoming features
+- [Office Hours](https://book.getrecon.xyz/extra/office_hours.html): Weekly office hours schedule
+- [Audit Process](https://book.getrecon.xyz/extra/audit_process.html): How to engage Recon for an audit

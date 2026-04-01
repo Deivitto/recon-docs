@@ -1,4 +1,4 @@
-# Governance Fuzzing
+# Governance Proposal Testing Before On-Chain Execution
 
 Governance fuzzing allows you to automatically trigger fuzzing jobs in response to on-chain events. This is particularly useful for testing how governance proposals or system configuration changes affect your invariants before they are executed on-chain.
 

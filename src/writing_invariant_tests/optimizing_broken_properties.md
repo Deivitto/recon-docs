@@ -1,4 +1,4 @@
-# Optimizing Broken Properties
+# Echidna Optimization Mode: Maximize Vulnerability Impact
 
 Echidna's [optimization mode](https://secure-contracts.com/program-analysis/echidna/advanced/optimization_mode.html?highlight=optim#optimizing-with-echidna) is a powerful tool for understanding the maximum possible impact of a vulnerability discovered by a broken property. 
 

@@ -1,4 +1,4 @@
-# Running Jobs In The Cloud With Recon
+# Cloud Fuzzing for Smart Contracts: Running Jobs with Recon
 
 The jobs page is where you can run new fuzzing jobs on Recon's cloud service and see existing jobs you've run.
 

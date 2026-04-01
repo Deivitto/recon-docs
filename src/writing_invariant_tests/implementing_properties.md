@@ -1,8 +1,9 @@
-# Implementing Properties 
+# Implementing Properties
+
 Implementing properties is the most important part of invariant testing, here we'll look at the [different types](#property-types) of properties that you can define and [how these can be implemented](#inlined-vs-global-properties) (inlined or global) along with the different techniques that you can use to [implement your properties](#example) as code using an ERC4626 vault as an example.
 
-## What are properties? 
-**Properties** allow us to define behaviors that we expect in our system. In the context of testing we can say that properties are logical statements about the system that we test after state-changing operations are made via a call to one of the target function [handlers](../using_recon/building_handlers.md#what-are-handlers). 
+## What are properties?
+A property is a logical statement about expected system behavior that should hold true after state-changing operations. Properties define the rules your contract must follow and are tested by calling [handlers](../using_recon/building_handlers.md#what-are-handlers) that trigger state changes, then checking that these rules still hold. 
 
 We can use the term **invariants** to specify properties of a system that should always hold true, meaning after **any** state-changing operation. 
 
@@ -13,7 +14,7 @@ We can use an ERC20 token as an example and define one property and one invarian
 > We prefer to use the term properties throughout this book because it covers invariants as well properties since invariants are a subset of properties but properties are not a subset of invariants.
 
 ## Property types
-In [this presentation](https://github.com/Certora/Tutorials/blob/master/06.Lesson_ThinkingProperties/Categorizing_Properties.pdf), Certora lays out the five fundamental types of properties we’re interested in when writing invariants.
+Properties fall into five categories, each testing a different aspect of contract correctness. In [this presentation](https://github.com/Certora/Tutorials/blob/master/06.Lesson_ThinkingProperties/Categorizing_Properties.pdf), Certora lays out these five fundamental types of properties.
 
 Namely these types of properties are:
 - Valid States - checking that the system only stays in one of the expected states
@@ -25,7 +26,7 @@ Namely these types of properties are:
 For more info on understanding these different types of properties, see [this post](https://getrecon.substack.com/i/150729898/the-four-types-of-properties). 
 
 ## Inlined vs global properties
-After having implemented many suites ourselves, we realized that methods to implement properties fall into major categories: inlined and global. 
+Properties can be implemented in two patterns: inlined (assertions within handler functions, checked after specific operations) or global (standalone functions checked after every fuzzer call). Inlined properties verify function-specific invariants; global properties enforce system-wide rules. 
 
 We call properties defined inside a function handler **inlined**, like the following from the [Create Chimera App](../oss/create_chimera_app.md) template:
 ```solidity
@@ -53,8 +54,8 @@ We call properties defined as standalone public functions in the [Properties](..
 
 Because global properties are publicly exposed functions, they can be called by the fuzzer after any call to one of the state-changing handlers (just like how boolean properties normally work). This lets us check that a property holds for any function call, so we can use it to implement our system's invariants. 
 
-## Testing mode 
-Echidna and Medusa, the two primary fuzzers that we use, allow defining properties using [assertions](https://secure-contracts.com/program-analysis/echidna/basic/testing-modes.html?highlight=assertion#assertions) as well as [boolean properties](https://secure-contracts.com/program-analysis/echidna/basic/testing-modes.html?highlight=boolean%20property#boolean-properties). 
+## Testing mode
+Fuzzers support two testing mechanisms: assertion mode (properties revert on violation) and boolean property mode (properties return true/false). Echidna and Medusa, the two primary fuzzers used with Chimera, allow defining properties using [assertions](https://secure-contracts.com/program-analysis/echidna/basic/testing-modes.html?highlight=assertion#assertions) as well as [boolean properties](https://secure-contracts.com/program-analysis/echidna/basic/testing-modes.html?highlight=boolean%20property#boolean-properties). 
 
 The same global property in the example above could be rewritten as an Echidna boolean property like so:
 ```solidity
@@ -68,8 +69,8 @@ Any property that can be written as a boolean property however can also be write
 
 --- 
 
-## Example
-We'll be using the scaffolding setup on [this](https://github.com/Recon-Fuzz/vaults-fuzzing-example/tree/book-example) simplified ERC4626 vault repo on the `book/example` branch.
+## ERC4626 Vault Property Examples
+This section demonstrates three property patterns — solvency checks, preconditioned validations, and stateful comparisons — implemented against an ERC4626 vault contract. We'll be using the scaffolding setup on [this](https://github.com/Recon-Fuzz/vaults-fuzzing-example/tree/book-example) simplified ERC4626 vault repo on the `book/example` branch.
 
 > In the scaffolded setup linked to above, the handlers each explicitly clamp any addresses that receive shares using the `_getActor()` function from the [`ActorManager`](../oss/setup_helpers.md). This allows us to ensure that only actors that we've added to the [Setup](https://github.com/Recon-Fuzz/vaults-fuzzing-example/blob/dbbb0ad89af28944392eca1776ab4faeb8eeb5ff/test/recon/Setup.sol#L37) receive share tokens and makes it easier to check properties on them. 
 

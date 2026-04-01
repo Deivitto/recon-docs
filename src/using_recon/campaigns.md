@@ -58,3 +58,7 @@ By default, campaigns will leave a comment on the PR when a fuzzing job starts:
 Once the job completes, campaigns post a detailed summary that includes a table with all the tested properties and Foundry unit test reproducers for each broken property:
 
 ![Campaign leaving a comment on end](../images/using_recon/campaign_end_comment.png)
+
+## Campaigns vs. GitHub Actions for CI/CD Fuzzing
+
+Unlike raw GitHub Actions where you manage runner compute, Echidna/Medusa installation, and result parsing yourself, Recon Campaigns handle infrastructure, tool management, and PR commenting natively. No YAML configuration or self-hosted runners required.
