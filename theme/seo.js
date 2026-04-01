@@ -26,6 +26,14 @@
       "@type": "Organization",
       "name": "Recon",
       "url": "https://getrecon.xyz",
+      "sameAs": [
+        "https://x.com/getreconxyz",
+        "https://github.com/Recon-Fuzz",
+        "https://getrecon.substack.com/",
+        "https://www.linkedin.com/company/recon-fuzz",
+        "https://www.dailywarden.com",
+        "https://www.onebugperday.com"
+      ],
       "founder": {
         "@type": "Person",
         "name": "Alex the Entreprenerd",
@@ -79,7 +87,15 @@
     "publisher": {
       "@type": "Organization",
       "name": "Recon",
-      "url": "https://getrecon.xyz"
+      "url": "https://getrecon.xyz",
+      "sameAs": [
+        "https://x.com/getreconxyz",
+        "https://github.com/Recon-Fuzz",
+        "https://getrecon.substack.com/",
+        "https://www.linkedin.com/company/recon-fuzz",
+        "https://www.dailywarden.com",
+        "https://www.onebugperday.com"
+      ]
     },
     "about": [
       "Invariant Testing",
