@@ -2,82 +2,73 @@
 function addSidebarLogo() {
   const sidebar = document.querySelector('.sidebar');
   const sidebarScrollbox = document.querySelector('.sidebar-scrollbox');
-  
+
   if (sidebar && sidebarScrollbox) {
-    // Check if logo already exists
     if (!document.querySelector('.sidebar-logo')) {
       const logoContainer = document.createElement('div');
       logoContainer.className = 'sidebar-logo';
-      
+
       const logoImg = document.createElement('img');
-      // Use the path_to_root variable that mdbook provides
       logoImg.src = (typeof path_to_root !== 'undefined' ? path_to_root : '') + 'favicon.png';
       logoImg.alt = 'Recon Logo';
-      
+
       logoContainer.appendChild(logoImg);
       sidebar.insertBefore(logoContainer, sidebarScrollbox);
     }
   }
 }
 
-// Right-hand Table of Contents Generator
-window.addEventListener('DOMContentLoaded', function() {
-  // Add logo to sidebar on all pages
-  addSidebarLogo();
+// Build or rebuild the right-hand TOC for the current page
+function buildTOC() {
+  // Remove existing TOC if present (page changed)
+  var existing = document.getElementById('right-toc');
+  if (existing) existing.remove();
 
-  const content = document.querySelector('.content');
+  // Remove old scroll listener
+  if (window._tocScrollHandler) {
+    window.removeEventListener('scroll', window._tocScrollHandler);
+    window._tocScrollHandler = null;
+  }
+
+  var content = document.querySelector('.content');
   if (!content) return;
 
-  // Only show TOC if the page has enough headings to be useful
-  const headings = content.querySelectorAll('h2, h3');
+  var headings = content.querySelectorAll('h2, h3');
   if (headings.length < 2) return;
 
   // Create TOC container
-  const toc = document.createElement('nav');
+  var toc = document.createElement('nav');
   toc.id = 'right-toc';
   toc.innerHTML = '<h3>On this page</h3>';
-  const ul = document.createElement('ul');
+  var ul = document.createElement('ul');
 
-  // Generate TOC items
-  headings.forEach((heading, index) => {
-    // Create a unique ID if it doesn't exist
+  headings.forEach(function(heading) {
     if (!heading.id) {
-      // Use existing ID if mdBook generated one, otherwise create our own
-      const existingId = heading.getAttribute('id');
-      if (existingId) {
-        heading.id = existingId;
-      } else {
-        // Create a safe ID from the heading text
-        const safeId = heading.textContent.trim()
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-')
-          .replace(/-+/g, '-')
-          .replace(/^-|-$/g, '');
-        
-        // Ensure uniqueness by adding index if needed
-        let finalId = safeId;
-        let counter = 1;
-        while (document.getElementById(finalId)) {
-          finalId = `${safeId}-${counter}`;
-          counter++;
-        }
-        
-        heading.id = finalId;
+      var safeId = heading.textContent.trim()
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+      var finalId = safeId;
+      var counter = 1;
+      while (document.getElementById(finalId)) {
+        finalId = safeId + '-' + counter;
+        counter++;
       }
+      heading.id = finalId;
     }
 
-    const li = document.createElement('li');
-    const a = document.createElement('a');
+    var li = document.createElement('li');
+    var a = document.createElement('a');
     a.href = '#' + heading.id;
     a.textContent = heading.textContent;
-    
-    // Indent H3 under H2
+
     if (heading.tagName === 'H3') {
       li.style.marginLeft = '12px';
       li.style.fontSize = '0.9em';
     }
-    
+
     li.appendChild(a);
     ul.appendChild(li);
   });
@@ -85,76 +76,67 @@ window.addEventListener('DOMContentLoaded', function() {
   toc.appendChild(ul);
   document.body.appendChild(toc);
 
-  // Handle smooth scrolling and active state
-  const tocLinks = toc.querySelectorAll('a');
-  
-  // Function to update active link
+  // Active state tracking
+  var tocLinks = toc.querySelectorAll('a');
+
   function updateActiveLink() {
-    const scrollPosition = window.scrollY + 100; // Offset for header
-    
-    let currentSection = null;
-    
-    // Find the current section based on scroll position
-    headings.forEach(heading => {
-      const elementTop = heading.offsetTop;
-      const elementBottom = elementTop + heading.offsetHeight;
-      
-      if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
-        currentSection = heading;
-      }
-    });
-    
-    // If no section found, find the one that's closest above current position
-    if (!currentSection) {
-      for (let i = headings.length - 1; i >= 0; i--) {
-        if (headings[i].offsetTop <= scrollPosition) {
-          currentSection = headings[i];
-          break;
-        }
+    var scrollPosition = window.scrollY + 120;
+    var currentSection = null;
+
+    for (var i = headings.length - 1; i >= 0; i--) {
+      if (headings[i].offsetTop <= scrollPosition) {
+        currentSection = headings[i];
+        break;
       }
     }
-    
-    // Update active class
-    tocLinks.forEach(link => link.classList.remove('active'));
+
+    tocLinks.forEach(function(link) { link.classList.remove('active'); });
     if (currentSection) {
-      const activeLink = toc.querySelector(`a[href="#${currentSection.id}"]`);
-      if (activeLink) {
-        activeLink.classList.add('active');
-      }
+      var activeLink = toc.querySelector('a[href="#' + currentSection.id + '"]');
+      if (activeLink) activeLink.classList.add('active');
     }
   }
 
-  // Update active link on scroll
+  window._tocScrollHandler = updateActiveLink;
   window.addEventListener('scroll', updateActiveLink);
-  
-  // Initial update
   updateActiveLink();
 
-  // Smooth scrolling for TOC links
-  tocLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
+  // Smooth scrolling
+  tocLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
       e.preventDefault();
-      const targetId = link.getAttribute('href').substring(1);
-      const targetElement = document.getElementById(targetId);
-      
+      var targetId = link.getAttribute('href').substring(1);
+      var targetElement = document.getElementById(targetId);
       if (targetElement) {
-        // Add a small offset to account for fixed header
-        const offset = 80;
-        const elementPosition = targetElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-        
-        // Update active link immediately for better UX
-        setTimeout(() => {
-          updateActiveLink();
-        }, 100);
-      } else {
-        console.warn('Target element not found:', targetId);
+        var offset = 80;
+        var elementPosition = targetElement.getBoundingClientRect().top;
+        var offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        setTimeout(updateActiveLink, 100);
       }
     });
   });
-}); 
+}
+
+// Run on initial load
+window.addEventListener('DOMContentLoaded', function() {
+  addSidebarLogo();
+  buildTOC();
+});
+
+// Re-run when mdBook swaps page content (handles SPA-like navigation)
+(function() {
+  var content = document.getElementById('content');
+  if (!content) return;
+
+  var observer = new MutationObserver(function(mutations) {
+    // Only rebuild if child nodes actually changed (page navigation)
+    for (var i = 0; i < mutations.length; i++) {
+      if (mutations[i].type === 'childList' && mutations[i].addedNodes.length > 0) {
+        buildTOC();
+        return;
+      }
+    }
+  });
+  observer.observe(content, { childList: true });
+})();
