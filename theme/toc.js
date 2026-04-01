@@ -24,18 +24,13 @@ function addSidebarLogo() {
 window.addEventListener('DOMContentLoaded', function() {
   // Add logo to sidebar on all pages
   addSidebarLogo();
-  // Only create TOC for the introduction page
-  const isIntroductionPage = window.location.pathname.includes('introduction/introduction.html') || 
-                            window.location.pathname.endsWith('introduction.html') ||
-                            window.location.pathname.endsWith('/');
-  
-  if (!isIntroductionPage) return;
 
   const content = document.querySelector('.content');
   if (!content) return;
 
-  const headings = content.querySelectorAll('h1, h2, h3');
-  if (!headings.length) return;
+  // Only show TOC if the page has enough headings to be useful
+  const headings = content.querySelectorAll('h2, h3');
+  if (headings.length < 2) return;
 
   // Create TOC container
   const toc = document.createElement('nav');
@@ -77,11 +72,10 @@ window.addEventListener('DOMContentLoaded', function() {
     a.href = '#' + heading.id;
     a.textContent = heading.textContent;
     
-    // Add indentation based on heading level
-    if (heading.tagName === 'H2') {
-      li.style.marginLeft = '8px';
-    } else if (heading.tagName === 'H3') {
-      li.style.marginLeft = '16px';
+    // Indent H3 under H2
+    if (heading.tagName === 'H3') {
+      li.style.marginLeft = '12px';
+      li.style.fontSize = '0.9em';
     }
     
     li.appendChild(a);
