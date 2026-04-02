@@ -67,7 +67,18 @@ function ensureTocToggle(toc) {
 function buildTOC() {
   // Remove existing TOC if present (page changed)
   var existing = document.getElementById('right-toc');
-  if (existing) existing.remove();
+  if (existing) {
+    existing.classList.remove('toc-visible');
+    existing.remove();
+  }
+
+  // Close overlay if open (page navigation)
+  var existingOverlay = document.getElementById('toc-overlay');
+  if (existingOverlay) existingOverlay.classList.remove('toc-overlay-visible');
+
+  // Reset toggle button icon
+  var existingToggle = document.getElementById('toc-toggle');
+  if (existingToggle) existingToggle.innerHTML = '☰';
 
   // Remove old scroll listener
   if (window._tocScrollHandler) {
