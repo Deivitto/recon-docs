@@ -79,7 +79,12 @@ function buildTOC() {
   if (!content) return;
 
   var headings = content.querySelectorAll('h2, h3');
-  if (headings.length < 2) return;
+  if (headings.length < 2) {
+    // No TOC needed — hide toggle button if it exists
+    var existingBtn = document.getElementById('toc-toggle');
+    if (existingBtn) existingBtn.style.display = 'none';
+    return;
+  }
 
   // Create TOC container
   var toc = document.createElement('nav');
@@ -123,6 +128,9 @@ function buildTOC() {
 
   // Create toggle button and overlay for mobile/tablet
   ensureTocToggle(toc);
+  // Ensure toggle is visible (may have been hidden on a page with no TOC)
+  var toggleBtn = document.getElementById('toc-toggle');
+  if (toggleBtn) toggleBtn.style.display = '';
 
   // Active state tracking
   var tocLinks = toc.querySelectorAll('a');
