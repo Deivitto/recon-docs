@@ -62,6 +62,19 @@
   background-color: var(--active-bg);
 }
 
+/* Desktop: TOC hides in place when toggled */
+@media (min-width: 1201px) {
+  #right-toc {
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  body.toc-hidden #right-toc {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 /* Mobile/tablet: TOC hidden by default, toggleable */
 @media (max-width: 1200px) {
   #right-toc {
@@ -91,9 +104,9 @@
   }
 }
 
-/* TOC toggle button */
+/* TOC toggle button — always visible on all screen sizes */
 #toc-toggle {
-  display: none;
+  display: flex;
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -120,12 +133,6 @@
 
 #toc-toggle:active {
   transform: scale(0.95);
-}
-
-@media (max-width: 1200px) {
-  #toc-toggle {
-    display: flex;
-  }
 }
 
 /* TOC overlay backdrop for mobile */

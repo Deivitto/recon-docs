@@ -18,7 +18,7 @@ function addSidebarLogo() {
   }
 }
 
-// Toggle button + overlay for mobile TOC
+// Toggle button + overlay for TOC (works on all screen sizes)
 function ensureTocToggle(toc) {
   // Don't duplicate
   if (document.getElementById('toc-toggle')) return;
@@ -33,20 +33,44 @@ function ensureTocToggle(toc) {
   overlay.id = 'toc-overlay';
   document.body.appendChild(overlay);
 
+  function isMobile() {
+    return window.innerWidth <= 1200;
+  }
+
   function openToc() {
-    toc.classList.add('toc-visible');
-    overlay.classList.add('toc-overlay-visible');
+    if (isMobile()) {
+      // Mobile/tablet: slide-in panel
+      toc.classList.add('toc-visible');
+      overlay.classList.add('toc-overlay-visible');
+    } else {
+      // Desktop: show in place
+      document.body.classList.remove('toc-hidden');
+    }
     btn.innerHTML = '✕';
   }
 
   function closeToc() {
-    toc.classList.remove('toc-visible');
-    overlay.classList.remove('toc-overlay-visible');
+    if (isMobile()) {
+      // Mobile/tablet: slide out
+      toc.classList.remove('toc-visible');
+      overlay.classList.remove('toc-overlay-visible');
+    } else {
+      // Desktop: hide in place
+      document.body.classList.add('toc-hidden');
+    }
     btn.innerHTML = '☰';
   }
 
+  function isTocOpen() {
+    if (isMobile()) {
+      return toc.classList.contains('toc-visible');
+    } else {
+      return !document.body.classList.contains('toc-hidden');
+    }
+  }
+
   btn.addEventListener('click', function() {
-    if (toc.classList.contains('toc-visible')) {
+    if (isTocOpen()) {
       closeToc();
     } else {
       openToc();
@@ -57,14 +81,14 @@ function ensureTocToggle(toc) {
 
   // Close TOC when a link inside it is clicked (mobile UX)
   toc.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A') {
+    if (e.target.tagName === 'A' && isMobile()) {
       closeToc();
     }
   });
 
   // Close TOC on Escape key
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && toc.classList.contains('toc-visible')) {
+    if (e.key === 'Escape' && isTocOpen()) {
       closeToc();
     }
   });
