@@ -61,6 +61,13 @@ function ensureTocToggle(toc) {
       closeToc();
     }
   });
+
+  // Close TOC on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && toc.classList.contains('toc-visible')) {
+      closeToc();
+    }
+  });
 }
 
 // Build or rebuild the right-hand TOC for the current page
