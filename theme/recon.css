@@ -33,12 +33,24 @@
   max-width: 750px;
   padding: 0 24px 60px 24px;
   margin-left: clamp(24px, 5vw, 80px);
+  margin-right: 300px; /* Reserve space for right TOC (250px + 30px right + padding) */
+}
+
+/* When TOC is hidden, content can use full width */
+body.toc-hidden .content main {
   margin-right: auto;
 }
 
 /* When sidebar is hidden, center normally */
 .sidebar-hidden .content main {
   margin-inline: auto;
+}
+
+/* Below 1200px: TOC becomes slide-in panel, no right margin needed */
+@media only screen and (max-width: 1200px) {
+  .content main {
+    margin-right: auto;
+  }
 }
 
 /* Tablet: sidebar visible but less space — tighten gap, let content fill */
