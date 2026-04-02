@@ -165,6 +165,34 @@
   top: 220px !important;
 }
 
+/* Mobile: smaller logo + adjusted scrollbox */
+@media (max-width: 620px) {
+  .sidebar-logo {
+    width: 100px;
+    height: 100px;
+    margin: 12px auto 16px auto;
+    padding: 8px;
+  }
+
+  .sidebar .sidebar-scrollbox {
+    top: 140px !important;
+  }
+}
+
+/* Tablet: slightly smaller logo */
+@media (min-width: 621px) and (max-width: 1080px) {
+  .sidebar-logo {
+    width: 140px;
+    height: 140px;
+    margin: 16px auto 20px auto;
+    padding: 10px;
+  }
+
+  .sidebar .sidebar-scrollbox {
+    top: 180px !important;
+  }
+}
+
 /* CSS Variables for consistent theming - getrecon.xyz purple accent */
 :root {
   --link-color: #7160e8;
