@@ -229,4 +229,23 @@
   --border-color: rgba(255, 255, 255, 0.08);
   --hover-bg: rgba(113, 96, 232, 0.1);
   --active-bg: rgba(113, 96, 232, 0.18);
-} 
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #right-toc {
+    transition: none;
+  }
+
+  #toc-overlay {
+    transition: none;
+  }
+
+  #toc-toggle {
+    transition: none;
+  }
+
+  #right-toc a {
+    transition: none;
+  }
+}
