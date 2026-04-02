@@ -337,6 +337,33 @@ h3 {
   color: #9d8fff;
 }
 
+/* Mobile: larger touch targets for menu bar icons */
+@media only screen and (max-width: 620px) {
+  #menu-bar {
+    padding: 0 8px;
+    height: 50px;
+  }
+
+  #menu-bar .icon-button,
+  #menu-bar a.icon-button {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #menu-bar i {
+    font-size: 1.2em;
+  }
+
+  /* Ensure search bar doesn't overflow */
+  #menu-bar #searchbar {
+    max-width: 50vw;
+    font-size: 14px;
+  }
+}
+
 /* 10. Scrollbar
    ------------- */
 .navy ::-webkit-scrollbar {
