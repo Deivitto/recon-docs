@@ -48,6 +48,17 @@
     margin-left: 16px;
     margin-right: 16px;
   }
+
+  /* Tablet: constrain code blocks and tables */
+  .content main pre {
+    max-width: calc(100vw - 300px);
+    overflow-x: auto;
+  }
+
+  .content main .table-wrapper {
+    max-width: calc(100vw - 300px);
+    overflow-x: auto;
+  }
 }
 
 /* Mobile: sidebar overlays, content needs full width */
