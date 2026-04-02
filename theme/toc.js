@@ -18,6 +18,51 @@ function addSidebarLogo() {
   }
 }
 
+// Toggle button + overlay for mobile TOC
+function ensureTocToggle(toc) {
+  // Don't duplicate
+  if (document.getElementById('toc-toggle')) return;
+
+  var btn = document.createElement('button');
+  btn.id = 'toc-toggle';
+  btn.setAttribute('aria-label', 'Toggle table of contents');
+  btn.innerHTML = '☰';
+  document.body.appendChild(btn);
+
+  var overlay = document.createElement('div');
+  overlay.id = 'toc-overlay';
+  document.body.appendChild(overlay);
+
+  function openToc() {
+    toc.classList.add('toc-visible');
+    overlay.classList.add('toc-overlay-visible');
+    btn.innerHTML = '✕';
+  }
+
+  function closeToc() {
+    toc.classList.remove('toc-visible');
+    overlay.classList.remove('toc-overlay-visible');
+    btn.innerHTML = '☰';
+  }
+
+  btn.addEventListener('click', function() {
+    if (toc.classList.contains('toc-visible')) {
+      closeToc();
+    } else {
+      openToc();
+    }
+  });
+
+  overlay.addEventListener('click', closeToc);
+
+  // Close TOC when a link inside it is clicked (mobile UX)
+  toc.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A') {
+      closeToc();
+    }
+  });
+}
+
 // Build or rebuild the right-hand TOC for the current page
 function buildTOC() {
   // Remove existing TOC if present (page changed)
@@ -75,6 +120,9 @@ function buildTOC() {
 
   toc.appendChild(ul);
   document.body.appendChild(toc);
+
+  // Create toggle button and overlay for mobile/tablet
+  ensureTocToggle(toc);
 
   // Active state tracking
   var tocLinks = toc.querySelectorAll('a');
