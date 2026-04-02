@@ -98,6 +98,24 @@
   .content main :not(pre) > code {
     word-break: break-all;
   }
+
+  /* Blockquotes: tighter padding on mobile */
+  .content main blockquote {
+    padding: 10px 12px;
+    margin: 1em 0;
+  }
+
+  /* Images: ensure they never overflow */
+  .content main img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Long URLs and text: prevent overflow */
+  .content main {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 /* Prevent horizontal scroll on mobile */
