@@ -395,7 +395,22 @@ h3 {
   /* Ensure search bar doesn't overflow */
   #menu-bar #searchbar {
     max-width: 50vw;
-    font-size: 14px;
+    font-size: 16px; /* ≥16px prevents iOS auto-zoom on focus */
+  }
+
+  /* Prevent iOS auto-zoom on any input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Search results: constrain width */
+  #searchresults-outer {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  #searchresults-outer .search-results {
+    padding: 0 12px;
   }
 }
 
