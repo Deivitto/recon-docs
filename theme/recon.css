@@ -277,6 +277,45 @@ h3 {
   color: #7160e8;
 }
 
+/* Mobile: nav arrows as bottom bar instead of side overlays */
+@media only screen and (max-width: 620px) {
+  .nav-chapters {
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    width: 50%;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 29, 42, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    z-index: 100;
+  }
+
+  .nav-chapters.previous {
+    left: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-chapters.next {
+    right: 0;
+  }
+
+  /* Add bottom padding to content so nav bar doesn't cover it */
+  .content main {
+    padding-bottom: 64px !important;
+  }
+
+  /* Shift the TOC toggle button above nav bar */
+  #toc-toggle {
+    bottom: 56px;
+  }
+}
+
 /* 9. Menu bar
    ----------- */
 .navy #menu-bar {
