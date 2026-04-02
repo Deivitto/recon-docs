@@ -57,11 +57,36 @@
     padding: 0 12px 40px 12px;
     margin-left: 0;
     margin-right: 0;
+    overflow-x: hidden;
   }
 
   h1 { font-size: 1.5em; }
   h2 { font-size: 1.25em; }
   h3 { font-size: 1.1em; }
+
+  /* Prevent code blocks from overflowing page on mobile */
+  .content main pre {
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.85em;
+  }
+
+  /* Tables: ensure contained horizontal scroll */
+  .content main .table-wrapper {
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content main table {
+    min-width: unset;
+  }
+
+  /* Long inline code: allow wrapping */
+  .content main :not(pre) > code {
+    word-break: break-all;
+  }
 }
 
 /* 3. Typography
