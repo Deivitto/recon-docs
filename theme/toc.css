@@ -65,7 +65,7 @@
 /* Mobile/tablet: TOC hidden by default, toggleable */
 @media (max-width: 1200px) {
   #right-toc {
-    display: none;
+    display: block;
     position: fixed;
     top: 50px;
     right: 0;
@@ -80,10 +80,14 @@
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    visibility: hidden;
   }
 
   #right-toc.toc-visible {
-    display: block;
+    transform: translateX(0);
+    visibility: visible;
   }
 }
 
@@ -126,7 +130,6 @@
 
 /* TOC overlay backdrop for mobile */
 #toc-overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -134,10 +137,14 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 #toc-overlay.toc-overlay-visible {
-  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Sidebar logo styling */
